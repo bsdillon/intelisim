@@ -1,0 +1,6 @@
+
+********************* WARNING *********************
+The flask server can only be built from intelisim/flask/build_flask.py
+
+            YOU ARE IN THE WRONG PLACE
+********************* WARNING *********************

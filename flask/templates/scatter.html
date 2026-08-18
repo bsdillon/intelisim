@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Scatter Plot Widget</title>
+        <style>
+        #scatter-popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 1px solid #888;
+            padding: 10px;
+            z-index: 1000;
+        }
+        #scatter-popup canvas { border: 1px solid #ccc; }
+        </style>
+    </head>
+    <body>
+        <div id="scatter-popup">
+        <canvas id="scatter-canvas" width="500" height="400"></canvas>
+        <br>
+        <button id="scatter-close">Close</button>
+        </div>
+
+        <script>
+            function resizeCanvas() {
+                const canvas = window.plot_canvas || document.getElementById("scatter-canvas");
+                canvas.width = window.innerWidth * 0.8;   // 80% of window width
+                canvas.height = window.innerHeight * 0.8; // 80% of window height
+            }
+
+            window.addEventListener("resize", () => {
+                resizeCanvas();
+                if (window.latestPlotData) {
+                    const { x_data, y_data, slope, intercept, rsquared, xName, yName } = window.latestPlotData;
+                    update_plot(x_data, y_data, slope, intercept, rsquared, xName, yName);
+                }
+            });
+
+            function createPlot() {
+                // Grab existing canvas and popup div
+                const popup = document.getElementById("scatter-popup");
+                window.plot_canvas = document.getElementById("scatter-canvas");
+                window.plot_ctx = window.plot_canvas.getContext("2d");
+                const closeBtn = document.getElementById("scatter-close");
+                resizeCanvas();
+
+                // Show popup
+                popup.style.display = "block";
+
+                // Hook up close button
+                closeBtn.onclick = () => {
+                    popup.style.display = "none";
+                    window.plot_ctx.clearRect(0, 0, window.plot_canvas.width, window.plot_canvas.height);
+                };
+            }
+
+            function update_plot(x_data, y_data, slope, intercept, rsquared, xName, yName) {
+                window.plot_ctx.clearRect(0, 0, window.plot_canvas.width, window.plot_canvas.height);
+                window.latestPlotData = { x_data, y_data, slope, intercept, rsquared, xName, yName };
+
+                // --- Plotting ---
+                const padding = 50;
+                const plotWidth = window.plot_canvas.width - 2 * padding;
+                const plotHeight = window.plot_canvas.height - 2 * padding;
+
+                const xMin = Math.min(...x_data);
+                const xMax = Math.max(...x_data);
+                const yMin = Math.min(...y_data);
+                const yMax = Math.max(...y_data);
+
+                const scaleX = plotWidth / (xMax - xMin || 1);
+                const scaleY = plotHeight / (yMax - yMin || 1);
+
+                const toCanvasX = x => padding + (x - xMin) * scaleX;
+                const toCanvasY = y => window.plot_canvas.height - padding - (y - yMin) * scaleY;
+
+                // Draw scatter points
+                window.plot_ctx.fillStyle = "blue";
+                for (let i = 0; i < x_data.length; i++) {
+                    const x = toCanvasX(x_data[i]);
+                    const y = toCanvasY(y_data[i]);
+                    window.plot_ctx.beginPath();
+                    window.plot_ctx.arc(x, y, 4, 0, Math.PI * 2);
+                    window.plot_ctx.fill();
+                }
+
+                // Draw regression line
+                const x0 = xMin;
+                const y0 = slope * x0 + intercept;
+                const x1 = xMax;
+                const y1 = slope * x1 + intercept;
+
+                // Labels and title
+                window.plot_ctx.font = "14px Arial bold";
+                window.plot_ctx.textAlign = "center";
+                window.plot_ctx.fillStyle = "black";
+                window.plot_ctx.fillText(`${xName} vs ${yName}`, window.plot_canvas.width / 2, 20);
+                window.plot_ctx.fillStyle = "red";
+                window.plot_ctx.fillText(`y=${slope.toFixed(2)}x + ${intercept.toFixed(2)}  R^2:${rsquared.toFixed(2)}`, window.plot_canvas.width / 2, 35);
+
+                window.plot_ctx.strokeStyle = "red";
+                window.plot_ctx.lineWidth = 2;
+                window.plot_ctx.beginPath();
+                window.plot_ctx.moveTo(toCanvasX(x0), toCanvasY(y0));
+                window.plot_ctx.lineTo(toCanvasX(x1), toCanvasY(y1));
+                window.plot_ctx.stroke();
+
+                // Draw axes and tick marks
+                const AXIS_SIZE = 5;
+
+                // X-axis label
+                window.plot_ctx.font = "14px Arial";
+                window.plot_ctx.textAlign = "center";
+                window.plot_ctx.fillStyle = "black";
+                window.plot_ctx.fillText(xName, window.plot_canvas.width / 2, window.plot_canvas.height - 10);
+
+                // X-axis line
+                window.plot_ctx.textAlign = "start";
+                window.plot_ctx.strokeStyle = "black";
+                window.plot_ctx.lineWidth = 1;
+                window.plot_ctx.beginPath();
+                window.plot_ctx.moveTo(padding, window.plot_canvas.height - padding);
+                window.plot_ctx.lineTo(window.plot_canvas.width - padding, window.plot_canvas.height - padding);
+                window.plot_ctx.stroke();
+
+                // X-axis ticks and labels
+                for (let i = 0; i <= AXIS_SIZE; i++) {
+                    const value = xMin + (i / AXIS_SIZE) * (xMax - xMin);
+                    const x = toCanvasX(value);
+                    const y = window.plot_canvas.height - padding;
+                    window.plot_ctx.beginPath();
+                    window.plot_ctx.moveTo(x, y);
+                    window.plot_ctx.lineTo(x, y + 5);
+                    window.plot_ctx.stroke();
+                    window.plot_ctx.fillText(value.toFixed(2), x - 10, y + 20);
+                }
+
+                // Y-axis label
+                window.plot_ctx.textAlign = "center";
+                window.plot_ctx.save();
+                window.plot_ctx.translate(10, window.plot_canvas.height / 2);
+                window.plot_ctx.rotate(-Math.PI / 2);
+                window.plot_ctx.fillText(yName, 0, 0);
+                window.plot_ctx.restore();
+
+                // Y-axis line
+                window.plot_ctx.textAlign = "start";
+                window.plot_ctx.beginPath();
+                window.plot_ctx.moveTo(padding*1.25, padding);
+                window.plot_ctx.lineTo(padding*1.25, window.plot_canvas.height - padding);
+                window.plot_ctx.stroke();
+
+                // Y-axis ticks and labels
+                for (let i = 0; i <= AXIS_SIZE; i++) {
+                    const value = yMin + (i / AXIS_SIZE) * (yMax - yMin);
+                    const x = padding*1.25;
+                    const y = toCanvasY(value);
+                    window.plot_ctx.beginPath();
+                    window.plot_ctx.moveTo(x, y);
+                    window.plot_ctx.lineTo(x - 5, y);
+                    window.plot_ctx.stroke();
+                    window.plot_ctx.fillText(value.toFixed(2), x - 40, y + 4);
+                }
+            }
+        </script>
+    </body>
+</html>

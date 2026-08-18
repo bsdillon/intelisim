@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi-Line Plot Widget</title>
+  <style>
+    #multiline-popup {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 1px solid #888;
+      padding: 10px;
+      z-index: 1000;
+    }
+    #multiline-popup canvas {
+      border: 1px solid #ccc;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="multiline-popup">
+    <canvas id="multiline-canvas"></canvas>
+    <br>
+    <button id="multiline-close">Close</button>
+  </div>
+
+  <script>
+    function createMultiLinePlot() {
+      const popup = document.getElementById("multiline-popup");
+      window.ml_canvas = document.getElementById("multiline-canvas");
+      window.ml_ctx = window.ml_canvas.getContext("2d");
+      const closeBtn = document.getElementById("multiline-close");
+
+      // Initial sizing
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      popup.style.display = "block";
+
+      closeBtn.onclick = () => {
+        popup.style.display = "none";
+        window.ml_ctx.clearRect(0, 0, window.ml_canvas.width, window.ml_canvas.height);
+      };
+    }
+
+    function resizeCanvas() {
+      const popup = document.getElementById("multiline-popup");
+      const w = Math.floor(window.innerWidth * 0.8);
+      const h = Math.floor(window.innerHeight * 0.7);
+      window.ml_canvas.width = w;
+      window.ml_canvas.height = h;
+    }
+
+    function update_multi_line_plot(datasets, timestamps, title, yLabel) {
+      const ctx = window.ml_ctx;
+      const canvas = window.ml_canvas;
+      if (!ctx || !canvas) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const padding = 60;
+      const plotWidth = canvas.width - 2 * padding;
+      const plotHeight = canvas.height - 2 * padding;
+
+      // Compute min/max across all datasets
+      const xMin = Math.min(...timestamps);
+      const xMax = Math.max(...timestamps);
+      const yMin = Math.min(...Object.values(datasets).flat());
+      const yMax = Math.max(...Object.values(datasets).flat());
+
+      const scaleX = plotWidth / (xMax - xMin || 1);
+      const scaleY = plotHeight / (yMax - yMin || 1);
+
+      const toCanvasX = x => padding + (x - xMin) * scaleX;
+      const toCanvasY = y => canvas.height - padding - (y - yMin) * scaleY;
+
+      // Draw axes
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padding, padding);
+      ctx.lineTo(padding, canvas.height - padding);
+      ctx.lineTo(canvas.width - padding, canvas.height - padding);
+      ctx.stroke();
+
+      // Draw axis ticks
+      const AXIS_SIZE = 5;
+      const numTicks = 5;
+      ctx.fillStyle = "#000";
+      ctx.font = "12px Arial";
+      ctx.textAlign = "right";
+
+      for (let i = 0; i <= numTicks; i++) {
+        const yVal = yMin + (i / numTicks) * (yMax - yMin);
+        const y = toCanvasY(yVal);
+        ctx.beginPath();
+        ctx.moveTo(padding - AXIS_SIZE, y);
+        ctx.lineTo(padding, y);
+        ctx.stroke();
+        ctx.fillText(yVal.toFixed(2), padding - 8, y + 3);
+      }
+
+      ctx.textAlign = "center";
+      for (let i = 0; i <= numTicks; i++) {
+        const xVal = xMin + (i / numTicks) * (xMax - xMin);
+        const x = toCanvasX(xVal);
+        ctx.beginPath();
+        ctx.moveTo(x, canvas.height - padding);
+        ctx.lineTo(x, canvas.height - padding + AXIS_SIZE);
+        ctx.stroke();
+        ctx.fillText(xVal.toFixed(2), x, canvas.height - padding + 15);
+      }
+
+      // Draw lines
+      const colors = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00"];
+      let colorIndex = 0;
+
+      for (const [name, data] of Object.entries(datasets)) {
+        ctx.strokeStyle = colors[colorIndex % colors.length];
+        colorIndex++;
+
+        ctx.beginPath();
+        let started = false;  // tracks if we have started a line segment
+        for (let i = 0; i < data.length; i++) {
+            const x = toCanvasX(timestamps[i]);
+            const y = toCanvasY(data[i]);
+
+            if (data[i] == null) {  // null or undefined
+                started = false;     // break the line
+                ctx.stroke();      // finish current segment
+                ctx.beginPath();   // start fresh for next segment
+                continue;
+            }
+
+            if (!started) {
+                ctx.moveTo(x, y);    // start new segment
+                started = true;
+            } else {
+                ctx.lineTo(x, y);    // continue segment
+            }
+        }
+        ctx.stroke();
+      }
+
+      // Draw legend
+      const legendX = canvas.width - padding - 100;
+      const legendY = padding + 10;
+      ctx.font = "bold 12px Arial";
+      ctx.textAlign = "left";
+      colorIndex = 0;
+      let offset = 0;
+      for (const name of Object.keys(datasets)) {
+        ctx.fillStyle = colors[colorIndex % colors.length];
+        ctx.fillRect(legendX, legendY + offset, 10, 10);
+        ctx.fillStyle = "#000";
+        ctx.fillText(name, legendX + 15, legendY + offset + 10);
+        offset += 15;
+        colorIndex++;
+      }
+
+      // Labels
+      ctx.fillStyle = "#000";
+      ctx.font = "bold 14px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("Timestep", canvas.width / 2, canvas.height - 10);
+
+      ctx.save();
+      ctx.translate(20, canvas.height / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillText(yLabel || "Value", 0, 0);
+      ctx.restore();
+
+      ctx.font = "bold 16px Arial";
+      ctx.fillText(title, canvas.width / 2, 25);
+    }
+  </script>
+</body>
+</html>

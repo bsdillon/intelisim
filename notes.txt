@@ -1,0 +1,39 @@
+create agent from mesa.Agent
+  super().__init__(unique_id, model)
+  def step(self): - drives agent actions for each iteration
+create model from mesa.Model
+  def step(self): - drives ALL actions for a n interation
+  * probably want a function to call the model.step
+create grid from mesa.space.MultiGrid(w, h, toroid shape Boolean)
+ * Toroid connects left/right, top/bottom of space
+ * grid.coord_iter gives two things as a set [[agents, pos]...]
+   - agents a list of all agents in that space,
+   - pos the (x,y) position of that space space
+ * place_agent(agent_instance, (x,y))
+ * remove_agent(agent_instance)
+ * getneighbor(origin(x,y), moore, include_center , vision)
+   - moore (nine directions) vs van neuman (four directions) "neighbors"
+   - include center has 10/5 blocks by including center square
+   - vision radius in all directions
+   - returns set of locations
+ * get_cell_list_contents((x,y)) - list of all agents in cell
+create schedule from mesa.time.RandomActivation(model)
+ * add(agent)
+ * remove(agent)
+ * agents_by_type[CLASSNAME][agent_id]
+ * list(agents_by_type[CLASSNAME].values()) - list of all agents of class type
+ * steps - integer that tracks data for collection
+
+mesa.timer.VARIOUS KINDS OF ACTIVATION SCHEDULES
+
+plyplot.imshow 	matplotlib.plyplot
+%matplotlib inline ----- causes the resulting mage to show in command line.?????
+
+random.uniform(min, max) - get a value within a range
+random.shuffle
+
+
+Growing Artificial Societies (book)
+
+Migration notes
+https://mesa.readthedocs.io/stable/migration_guide.html#removal-of-model-time-and-rename-steps

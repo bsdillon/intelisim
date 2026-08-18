@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Flask GUI</title>
+        <style>
+            #container {display: flex; height: 100vh; overflow: hidden;}
+            body { margin: 0; display: flex; height: 100vh; }
+            #left { width: 340px; background: #AAA; color: black; padding: 10px; box-sizing: border-box; flex-direction: column; height: 100%;}
+            #right { flex: 1; background: #AAA; display: flex; justify-content: center; align-items: center; }
+            canvas { border: 1px solid #444; background: black; width: 100%; height: 100%; }
+            .divider {border: none; height: 3px; background-color: #333; margin: 10px 0;}
+            .light_divider {border: none; height: 1px; background-color: #999; margin: 10px 0;}
+            .button-row {display: flex; justify-content: center; flex-wrap: nowrap; width: 100%; margin: 8px 0; gap: 8px; }
+            .player_button {margin-right: 0px; border-radius: 50%; margin-bottom: 4px; padding: 0; border: none; background: none; cursor: pointer;}
+            .disabled {filter: grayscale(100%) brightness(70%); opacity: 0.6; cursor: not-allowed;}
+            .scrollable {overflow-y: auto; max-height: 300px;}
+            .singlerow {display: flex; flex-wrap: nowrap;}
+            #dragbar {width: 5px; cursor: col-resize; background: #22F;}
+            #banner { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #222; color: #fff; font-family: monospace; font-size: 14px; padding: 6px 10px; box-sizing: border-box; border-top: 1px solid #555; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+            #status { color: #fff; }
+            #version { color: #fff; }
+            .progress-container {position: relative; flex: 1; height: 8px; background: #333; border-radius: 4px; cursor: pointer;}
+            .player {display: flex; align-items: center; gap: 10px;}
+            .buffered {position: absolute; height: 100%; background: #666; border-radius: 4px; width: 0%;}
+            .played {position: absolute; height: 100%; background: #0af; border-radius: 4px; width: 0%;}
+        </style>
+        <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+        <script type="module" src="{{ url_for('static', filename='js/shared.js') }}"></script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="left"></div>
+            <div id="dragbar"></div>
+            <div id="right">
+                <canvas id="scene" width="600" height="400"></canvas>
+            </div>
+        </div>
+        <div id="banner">
+            <div id="status">Ready</div>
+            <div id="version">Simulation GUI version {{ server_version }}</div>
+        </div>
+
+        <script type="module">
+            import { WidgetManager } from '/static/js/widgetmanager.js';
+            import { Renderer } from '/static/js/renderer.js';
+            import { reportGuiError} from '/static/js/guierror.js';
+            import { SocketSignal } from '/static/js/shared.js';
+            import { BufferedPlayer } from '/static/js/bufferedplayer.js';
+
+            const canvas = document.getElementById("scene");
+            const ctx = canvas.getContext("2d");
+
+            const socket = io();
+            const renderer = new Renderer(canvas, 1, 1, "black");
+            const player = new BufferedPlayer(socket, renderer);
+            const manager = new WidgetManager("left", socket, player);
+
+            socket.on(SocketSignal.ADD_CONTROL, (widgetJSON) => {
+                    try {
+                        let widget = manager.add_control(widgetJSON);
+
+                        //TODO should the socket event occur within the widget?
+                        //TODO should the json be generated within the widget?
+                        widget.register(value => {
+                            socket.emit(SocketSignal.CONTROL_CHANGE, {
+                                name: widget.widget_name,
+                                value: value
+                            });
+                        });
+                        setStatus(`Control added ${widgetJSON["name"]}`)
+                    } catch (err) {
+                        setStatus(err, true);
+                    }
+                });
+
+            const dataWidgets = {};
+            socket.on(SocketSignal.ADD_DATAPOINT, (widgetJSON) => {
+                    try {
+                        let widget = manager.add_datapoint(widgetJSON);
+
+                        // Register the update runner for later use
+                        dataWidgets[widget.widget_name] = widget.getUpdateRunner();
+                        setStatus(`Datapoint added ${widgetJSON["name"]}`)
+                    } catch (err) {
+                        setStatus(err, true);
+                    }
+                });
+
+            socket.on(SocketSignal.UPDATE_DATAPOINTS, (dataJSON) => {
+                    try {
+                        // dataJSON looks like { "widget_title": {value_collection}, ... }
+                        for (const [widget_title, value_collection] of Object.entries(dataJSON)) {
+                                const runner = dataWidgets[widget_title];
+                                if (runner) {
+                                    runner(value_collection); // call the widget’s update function
+                                }
+                                else
+                                {
+                                    console.log(`Datapoint ${widget_title} not found`)
+                                }
+                        }
+                        setStatus(`Datapoints updated`)
+                    } catch (err) {
+                        setStatus(err, true);
+                    }
+                });
+
+            socket.on(SocketSignal.START_GUI, () => {
+                    resize_canvas();
+                });
+
+            window.addEventListener('beforeunload', () => {
+                player.stopPlayer();
+                });
+
+            window.addEventListener("resize", () => {
+                    resize_canvas();
+                });
+
+            // ----- Make the left panel resizeable -----
+            const dragbar = document.getElementById("dragbar");
+            const left = document.getElementById("left");
+            const container = document.getElementById("container");
+            let isDragging = false;
+
+            dragbar.addEventListener("mousedown", (e) => {
+                isDragging = true;
+                document.body.style.cursor = "col-resize";
+            });
+
+            document.addEventListener("mouseup", (e) => {
+                if (isDragging) {
+                    isDragging = false;
+                    document.body.style.cursor = "default";
+                    resize_canvas();
+                }
+            });
+
+            document.addEventListener("mousemove", (e) => {
+                if (!isDragging) return;
+
+                // Calculate new width for the left panel
+                const containerRect = container.getBoundingClientRect();
+                let newWidth = e.clientX - containerRect.left;
+
+                // Optional: min/max width
+                newWidth = Math.max(100, Math.min(newWidth, containerRect.width - 100));
+
+                left.style.width = newWidth + "px";
+            });
+
+            function resize_canvas() {
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+                renderer.calculateBlockSize(20, 20, canvas.width, canvas.height);
+                //TODO why is the resize not working on the canvas?
+            }
+
+            function setStatus(message, isError = false) {
+                const banner = document.getElementById("status");
+                banner.textContent = message;
+                banner.style.color = isError ? "#900" : "#FFF";
+            }
+        </script>
+    </body>
+</html>
