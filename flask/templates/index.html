@@ -63,7 +63,7 @@
                         //TODO should the socket event occur within the widget?
                         //TODO should the json be generated within the widget?
                         widget.register(value => {
-                            socket.emit(SocketSignal.CONTROL_CHANGE, {
+                            socket.emit(SocketSignal.CONTROL_CHANGED, {
                                 name: widget.widget_name,
                                 value: value
                             });

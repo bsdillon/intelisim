@@ -1,3 +1,4 @@
+cd ..
 # 1. Fresh venv + packages (server + client side)
 python -m venv .venv
 source .venv/bin/activate

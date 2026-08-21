@@ -1,3 +1,4 @@
+import os
 import sys
 import socketio
 import requests
@@ -9,7 +10,14 @@ from common.constants import *
 from pydispatch import dispatcher
 
 # ----- CONNECT TO THE GUI SERVER -----
-FLASK_URL = "http://localhost:5000"
+
+FLASK_URL = os.getenv(
+    "INTELISIM_GUI_URL",
+    "http://127.0.0.1:5000"
+)
+
+# FLASK_URL = "http://localhost:5000"
+# FLASK_URL = "http://127.0.0.1:5000"
 
 class NetworkConnection():
     def __init__(self):

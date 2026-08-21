@@ -1,3 +1,5 @@
+cd ../../
+
 source .venv/bin/activate
 
 # Confirm you are really inside the venv

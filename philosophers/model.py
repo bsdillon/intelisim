@@ -18,12 +18,22 @@ def count_hungry(my_model):
 
 class Table(ModelExtension):
     def __init__(self, width, height):
-        super().__init__(width, height, SingleGrid(self.width, self.height,True),
-                            model_reporters={HUNGER_DATA: lambda m: count_hungry(m)},
-                            agent_reporters={"Location": lambda a: a.pos[0], 
-                                             "Icon": lambda a: a.get_icon()},
-                            agenttype_reporters={Philosopher: {"ID": "unique_id", "State": lambda a: a.state.name}},
-                            tables = {"History": ["Visual"]})
+        super().__init__(
+            width,
+            height,
+            SingleGrid(width, height, True),
+            model_reporters={HUNGER_DATA: lambda m: count_hungry(m)},
+            agent_reporters={"Location": lambda a: a.pos[0], 
+                             "Icon": lambda a: a.get_icon()},
+            agenttype_reporters={Philosopher: {"ID": "unique_id", "State": lambda a: a.state.name}},
+            tables = {"History": ["Visual"]})
+            
+        # super().__init__(width, height, SingleGrid(self.width, self.height,True),
+        #                     model_reporters={HUNGER_DATA: lambda m: count_hungry(m)},
+        #                     agent_reporters={"Location": lambda a: a.pos[0], 
+        #                                      "Icon": lambda a: a.get_icon()},
+        #                     agenttype_reporters={Philosopher: {"ID": "unique_id", "State": lambda a: a.state.name}},
+        #                     tables = {"History": ["Visual"]})
 
         #other simulation members
         self.deadlocked = False
