@@ -6,7 +6,7 @@ ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 IMAGE="intelisim-gui"
 CONTAINER="intelisim-gui"
 SESSION_NAME="intelisim"
-PORT=5000
+PORT=5001
 REBUILD=false
 
 
@@ -179,19 +179,50 @@ choose_simulation() {
 }
 
 
+
 run_simulation() {
     choose_simulation || return 1
 
+    local relative
+    local simulation
+    local python
+
+    relative="${SELECTED_SIMULATION#"$ROOT"/}"
+    simulation="$(dirname "$relative")"
+    python="$ROOT/.venv/bin/python"
+
     echo
     echo "==> Starting simulation:"
-    echo "    ${SELECTED_SIMULATION#"$ROOT"/}"
+    echo "    $simulation"
     echo
 
-    cd "$(dirname "$SELECTED_SIMULATION")"
+    if [[ ! -x "$python" ]]; then
+        echo "ERROR: Python virtual environment not found:"
+        echo "    $python"
+        echo
+        echo "Run:"
+        echo "    ./packages.sh"
+        return 1
+    fi
 
-    ./dev.sh
+    cd "$ROOT"
+
+    "$python" -m "$simulation.model"
 }
 
+#run_simulation() {
+#    choose_simulation || return 1
+#
+#    echo
+#    echo "==> Starting simulation:"
+#    echo "    ${SELECTED_SIMULATION#"$ROOT"/}"
+#    echo
+#
+#    cd "$(dirname "$SELECTED_SIMULATION")"
+#
+#    ./dev.sh
+#}
+#
 
 # ------------------------------------------------------------
 # tmux

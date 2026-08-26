@@ -1,0 +1,8 @@
+mesa
+flask
+flask-socketio
+eventlet
+python-socketio
+requests
+python-dispatch
+structlog
