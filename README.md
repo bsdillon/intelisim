@@ -1,4 +1,17 @@
+# Intelisim
+
+## Purpose
+
+TBD
+
+## Installation
+
+TBD
+
 ## Architecture Notes
+
+(The initial design of this project can be found in this [docx file](DevelopersConcept.docx).
+Additional, supporting notes will be maintained within `/docs`)
 
 Intelisim consists of three primary concerns:
 
@@ -19,3 +32,14 @@ visualization frame.
 
 The simulation may execute thousands of steps while the GUI receives
 or renders those states at a different rate.
+
+## Known Experimental Questions
+
+- How many simulation steps/sec can Intelisim execute?
+- How many frames/sec can the GUI consume?
+- Are all simulation steps persisted?
+- Can a simulation be reproduced from its initial conditions?
+- Where is the random seed recorded?
+- Where are simulation parameters recorded?
+- Can results be analyzed without the GUI?
+- Can a simulation run headlessly?
