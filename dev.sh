@@ -8,6 +8,7 @@ CONTAINER="intelisim-gui"
 SESSION_NAME="intelisim"
 PORT=5001
 REBUILD=false
+RUN_SIM=false
 
 
 usage() {
@@ -25,6 +26,10 @@ EOF
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --run-sim)
+            RUN_SIM=true
+            shift
+            ;;
         --rebuild)
             REBUILD=true
             shift
@@ -251,23 +256,52 @@ run_tmux_session() {
     SIM_SCRIPT="
         export INTELISIM_GUI_URL='$GUI_URL'
         cd '$ROOT'
-        $(declare -f choose_simulation find_simulations run_simulation)
-        run_simulation
+        '$ROOT/dev.sh' --run-sim
     "
+    
+#    SIM_SCRIPT="
+#        export INTELISIM_GUI_URL='$GUI_URL'
+#        cd '$ROOT'
+#        # Re-source the functions from this script without re-running the whole thing
+#        source <(sed -n '/^find_simulations()/,/^}/p; /^choose_simulation()/,/^}/p; /^run_simulation()/,/^}/p' '$ROOT/dev.sh')
+#        run_simulation
+#    "
+    
+#    SIM_SCRIPT="
+#        export INTELISIM_GUI_URL='$GUI_URL'
+#        cd '$ROOT'
+#        $(declare -f choose_simulation find_simulations run_simulation)
+#        run_simulation
+#    "
 
     # Create GUI pane.
     tmux new-session \
         -d \
         -s "$SESSION_NAME" \
+        -n gui \
         "bash -lc $(printf '%q' "$GUI_SCRIPT")"
-
+    
     # Create simulation pane.
     tmux split-window \
         -h \
-        -t "$SESSION_NAME" \
+        -t "$SESSION_NAME:gui" \
         "bash -lc $(printf '%q' "$SIM_SCRIPT")"
-
-    tmux select-pane -t "$SESSION_NAME":0.1
+    
+    tmux select-pane -t "$SESSION_NAME:gui.1"
+    
+#    # Create GUI pane.
+#    tmux new-session \
+#        -d \
+#        -s "$SESSION_NAME" \
+#        "bash -lc $(printf '%q' "$GUI_SCRIPT")"
+#
+#    # Create simulation pane.
+#    tmux split-window \
+#        -h \
+#        -t "$SESSION_NAME:1" \
+#        "bash -lc $(printf '%q' "$SIM_SCRIPT")"
+    
+#    tmux select-pane -t "$SESSION_NAME:1.1"
 
     tmux attach-session -t "$SESSION_NAME"
 }
@@ -276,6 +310,11 @@ run_tmux_session() {
 # ------------------------------------------------------------
 # Run
 # ------------------------------------------------------------
+
+if [[ "$RUN_SIM" == true ]]; then
+    run_simulation
+    exit $?
+fi
 
 if command -v tmux >/dev/null 2>&1; then
     run_tmux_session
