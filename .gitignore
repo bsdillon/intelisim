@@ -1,3 +1,22 @@
 *.pyc
 node_modules/
 
+# ignore local logs
+*.log
+
+# ignore .net
+*.DotSettings.user
+*.nupkg
+obj/
+bin/
+nupkg/
+
+#ignore rider
+.idea/
+
+# ignore asp
+wwwroot/lib/
+
+# ignore secrets
+*.rest
+*.env
