@@ -62,6 +62,14 @@ class Philosopher(Agent):
         return f"(*)"
 
     def change_state(self, from_state, to_state):
+
+        self.log.info(
+            "state_changed",
+            state=self.state.name,
+            from_state=from_state,
+            to_state=to_state,
+        )
+        
         if not self.state == from_state:
             raise AttributeError(f"{self} expected state mismatch {from_state}")
         self.state = to_state
