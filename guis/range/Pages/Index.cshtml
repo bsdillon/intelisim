@@ -4,6 +4,39 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
+<div class="text-center center">
     <h1 class="display-4">Welcome to Intelisim!</h1>
+
+    <stack>
+
+        <div style="">
+            <island url="/profile/avatar" event="Revealed">
+                <div class="alert alert-info d-flex justify-content-center vertical-align-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </island>
+        </div>
+
+        <ul>
+            <h1>Pick a Lab:</h1>
+
+            <stack>
+                <link-button href="Lab01" class="btn btn-primary">
+                    Lab 01
+                </link-button>
+
+                @* <link-button href="Lab02" disabled class="btn btn-primary"> *@
+                @*     Lab 02 *@
+                @* </link-button> *@
+                @* <link-button href="Lab03" disabled class="btn btn-primary"> *@
+                @*     Lab 03 *@
+                @* </link-button> *@
+                @* <link-button href="Lab04" disabled class="btn btn-primary"> *@
+                @*     Lab 04 *@
+                @* </link-button> *@
+            </stack>
+        </ul>
+    </stack>
 </div>

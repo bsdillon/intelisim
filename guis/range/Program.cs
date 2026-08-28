@@ -1,11 +1,33 @@
 using System.Net.WebSockets;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddOutputCache();
+builder.Services.AddResponseCaching();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+app.UseResponseCaching();
+app.UseOutputCache();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapRazorPages();
+app.MapGet("/profile/avatar", () => Results.Content(
+    $"""
+     <div class="alert alert-info">
+        <p class="fs-1 fw-bold">🌴 Welcome to my page!</p>
+        <p class="fs-3">You arrived on ({DateTime.Now.ToLongTimeString()})</p>
+     </div>
+     """)
+);
+
 
 // Enable WebSockets
 var webSocketOptions = new WebSocketOptions

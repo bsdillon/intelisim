@@ -7,6 +7,7 @@ namespace MyApp.Namespace
     {
         public void OnGet()
         {
+            Console.WriteLine("GO!  DICE ROLL!");
         }
     }
 }
