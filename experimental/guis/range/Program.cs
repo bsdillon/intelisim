@@ -1,9 +1,33 @@
+using System.Net.WebSockets;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+// Enable WebSockets
+var webSocketOptions = new WebSocketOptions
+{
+    KeepAliveInterval = TimeSpan.FromSeconds(120)
+};
+app.UseWebSockets(webSocketOptions);
+
+// Map WebSocket endpoint
+app.Map("/ws", async context =>
+{
+    if (context.WebSockets.IsWebSocketRequest)
+    {
+        using var webSocket = await context.WebSockets.AcceptWebSocketAsync();
+        await Echo(context, webSocket);
+    }
+    else
+    {
+        context.Response.StatusCode = 400;
+    }
+});
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -21,6 +45,30 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 app.MapRazorPages()
-   .WithStaticAssets();
+    .WithStaticAssets();
 
 app.Run();
+
+
+static async Task Echo(HttpContext context, WebSocket webSocket)
+{
+    var buffer = new byte[1024 * 4];
+    WebSocketReceiveResult result = await webSocket.ReceiveAsync(
+        new ArraySegment<byte>(buffer), CancellationToken.None);
+
+    while (!result.CloseStatus.HasValue)
+    {
+        await webSocket.SendAsync(
+            new ArraySegment<byte>(buffer, 0, result.Count),
+            result.MessageType,
+            result.EndOfMessage,
+            CancellationToken.None);
+        result = await webSocket.ReceiveAsync(
+            new ArraySegment<byte>(buffer), CancellationToken.None);
+    }
+
+    await webSocket.CloseAsync(
+        result.CloseStatus.Value,
+        result.CloseStatusDescription,
+        CancellationToken.None);
+}
