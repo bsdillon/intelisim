@@ -1,26 +1,53 @@
 ﻿@page
-@model range.DiceRollModel
+@model DiceRollModel
 
+@{
+    bool use_ws_controller = true;
+}
 
+@if (!@use_ws_controller)
+{
+    <div hx-ext="ws" ws-connect="?handler=Ws">
+        <div id="status">Idle</div>
+        <partial name="_Die" model="Model.Die"/>
 
-<div hx-ext="ws" ws-connect="/ws/dice">
-    <div id="status">Idle</div>
+        <form ws-send>
+            <input type="hidden" name="cmd" value="start"/>
+            <button class='btn btn-primary' type="submit">Roll</button>
+        </form>
+        <form ws-send>
+            <input type="hidden" name="cmd" value="stop"/>
+            <button class='btn btn-primary' type="submit">Stop</button>
+        </form>
+        <form ws-send>
+            <input type="hidden" name="cmd" value="replay"/>
+            <button class='btn btn-primary' type="submit">Replay</button>
+        </form>
+    </div>
+}
 
-    <div id="dice" class="die">?</div>
+@if (use_ws_controller)
+{
+    <div hx-ext="ws" ws-connect="/ws/dice">
+        <div id="status">Idle</div>
 
-    <form ws-send>
-        <input type="hidden" name="cmd" value="start"/>
-        <button type="submit">Roll</button>
-    </form>
-    <form ws-send>
-        <input type="hidden" name="cmd" value="stop"/>
-        <button type="submit">Stop</button>
-    </form>
-    <form ws-send>
-        <input type="hidden" name="cmd" value="replay"/>
-        <button type="submit">Replay</button>
-    </form>
-</div>
+        <div id="dice" class="die">?</div>
+
+        <form ws-send>
+            <input type="hidden" name="cmd" value="start"/>
+            <button class='btn btn-primary' type="submit">Roll</button>
+        </form>
+        <form ws-send>
+            <input type="hidden" name="cmd" value="stop"/>
+            <button class='btn btn-primary' type="submit">Stop</button>
+        </form>
+        <form ws-send>
+            <input type="hidden" name="cmd" value="replay"/>
+            <button class='btn btn-primary' type="submit">Replay</button>
+        </form>
+    </div>
+}
+
 
 <style>
     .spin {

@@ -1,0 +1,8 @@
+@model DieViewModel
+@{
+    Layout = null;
+}
+
+<div id="dice" class="die@(Model.Spinning ? " spin" : "")" hx-swap-oob="true">
+    @Model.Glyph
+</div>

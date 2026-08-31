@@ -31,7 +31,7 @@ public sealed class DiceSession
 {
     private readonly WebSocket _ws;
     private readonly DiceHtmlRenderer _html;
-    private CancellationTokenSource? _rollCts;
+    private CancellationTokenSource? cancellationTokenSource;
     private readonly List<int> _lastFrames = new();
     private static readonly string[] Faces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
 
@@ -41,12 +41,12 @@ public sealed class DiceSession
         _html = html;
     }
 
-    public async Task RunAsync(CancellationToken httpCt)
+    public async Task RunAsync(CancellationToken cancellationToken)
     {
         var buffer = new byte[8 * 1024];
-        while (_ws.State == WebSocketState.Open && !httpCt.IsCancellationRequested)
+        while (_ws.State == WebSocketState.Open && !cancellationToken.IsCancellationRequested)
         {
-            var result = await _ws.ReceiveAsync(buffer, httpCt);
+            var result = await _ws.ReceiveAsync(buffer, cancellationToken);
             if (result.MessageType == WebSocketMessageType.Close) break;
 
             var json = Encoding.UTF8.GetString(buffer, 0, result.Count);
@@ -55,23 +55,23 @@ public sealed class DiceSession
             switch (cmd)
             {
                 case "start":
-                    _rollCts?.Cancel();
-                    _rollCts = CancellationTokenSource.CreateLinkedTokenSource(httpCt);
-                    _ = RollAsync(_rollCts.Token, replay: false);
+                    cancellationTokenSource?.Cancel();
+                    cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                    _ = RollAsync(cancellationTokenSource.Token, replay: false);
                     break;
                 case "stop":
-                    _rollCts?.Cancel();
+                    cancellationTokenSource?.Cancel();
                     await SendAsync(_html.Status("Stopped"));
                     break;
                 case "replay":
-                    _rollCts?.Cancel();
-                    _rollCts = CancellationTokenSource.CreateLinkedTokenSource(httpCt);
-                    _ = RollAsync(_rollCts.Token, replay: true);
+                    cancellationTokenSource?.Cancel();
+                    cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                    _ = RollAsync(cancellationTokenSource.Token, replay: true);
                     break;
             }
         }
 
-        _rollCts?.Cancel();
+        cancellationTokenSource?.Cancel();
         if (_ws.State == WebSocketState.Open)
             await _ws.CloseAsync(WebSocketCloseStatus.NormalClosure, "done", CancellationToken.None);
     }
@@ -129,24 +129,3 @@ public sealed class DiceSession
         return doc.RootElement.TryGetProperty("cmd", out var c) ? c.GetString() ?? "" : "";
     }
 }
-
-
-//
-// public sealed class DiceHtmlRenderer
-// {
-//     public string Die(int face, bool spinning) =>
-//         $"""
-//          <div id="dice" class="die{(spinning ? " spin" : " settle")}" hx-swap-oob="true">
-//              {Face(face)}
-//          </div>
-//          """;
-//
-//     public string Status(string text) =>
-//         $"""<div id="status" hx-swap-oob="true">{text}</div>""";
-//
-//     private static string Face(int n) => n switch
-//     {
-//         1 => "⚀", 2 => "⚁", 3 => "⚂", 4 => "⚃", 5 => "⚄", 6 => "⚅",
-//         _ => "?"
-//     };
-// }

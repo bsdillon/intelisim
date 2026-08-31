@@ -1,11 +1,26 @@
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
+var logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(
+        "./logs/range.log",
+        rollingInterval: RollingInterval.Day,
+        rollOnFileSizeLimit: true
+    )
+    .CreateLogger();
+
 
 builder.Services.AddOutputCache();
 builder.Services.AddResponseCaching();
+builder.Services.AddSingleton(logger);
 builder.Services.AddSingleton<DiceHtmlRenderer>();
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 
+// REQUIRED, to use websocket calls on `*/ws` paths along with PageModels - I'd otherwise have to use controllers (ew, gross!):
+builder.Services.AddSingleton<IRazorPartialRenderer, RazorPartialRenderer>();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

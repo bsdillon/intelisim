@@ -1,0 +1,7 @@
+@model string
+@{
+    // _Status is required because StreamAsync sends it before the first die frame
+    Layout = null;
+}
+
+<div id="status" hx-swap-oob="true">@Model</div>
