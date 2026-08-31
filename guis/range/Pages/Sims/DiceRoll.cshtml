@@ -1,16 +1,63 @@
 ﻿@page
-@model MyApp.Namespace.DiceRollModel
-@{
-    int times = 10;
-}
+@model range.DiceRollModel
 
 
-<stack>
-    <input asp-for="@times"/>
-    
-    <button>Roll</button>
-    
-    @* <island url="/Sims/DiceRoll" event="Revealed"> *@
-    @* </island> *@
 
-</stack>
+<div hx-ext="ws" ws-connect="/ws/dice">
+    <div id="status">Idle</div>
+
+    <div id="dice" class="die">?</div>
+
+    <form ws-send>
+        <input type="hidden" name="cmd" value="start"/>
+        <button type="submit">Roll</button>
+    </form>
+    <form ws-send>
+        <input type="hidden" name="cmd" value="stop"/>
+        <button type="submit">Stop</button>
+    </form>
+    <form ws-send>
+        <input type="hidden" name="cmd" value="replay"/>
+        <button type="submit">Replay</button>
+    </form>
+</div>
+
+<style>
+    .spin {
+        animation: wobble 80ms linear;
+    }
+</style>
+
+@* @page *@
+@* @model MyApp.Namespace.DiceRollModel *@
+@* @{ *@
+@*     int max_rolls = 1000; *@
+@* } *@
+@* *@
+@* <stack class="gap-8"> *@
+@*     <input asp-for="@max_rolls"/> *@
+@* *@
+@*     <button>Roll</button> *@
+@* *@
+@*     <div class="stack"> *@
+@* *@
+@*         <label>Max Rolls</label> *@
+@*         <div class="w-full max-w-xs"> *@
+@*             <input type="range" min="0" max="100" value="25" class="range" step="25"/> *@
+@*             <div class="flex justify-between px-2.5 mt-2 text-xs"> *@
+@*                 <span>|</span> *@
+@*                 <span>|</span> *@
+@*                 <span>|</span> *@
+@*                 <span>|</span> *@
+@*                 <span>|</span> *@
+@*             </div> *@
+@*             <div class="flex justify-between px-2.5 mt-2 text-xs"> *@
+@*                 <span>1</span> *@
+@*                 <span>2</span> *@
+@*                 <span>3</span> *@
+@*                 <span>4</span> *@
+@*                 <span>5</span> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </stack> *@
