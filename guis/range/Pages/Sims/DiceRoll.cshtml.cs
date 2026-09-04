@@ -135,5 +135,26 @@ namespace range
             using var doc = JsonDocument.Parse(Encoding.UTF8.GetString(buffer, 0, count));
             return doc.RootElement.TryGetProperty("cmd", out var c) ? c.GetString() ?? "" : "";
         }
+
+
+        #region monte_carlo_dice_sim
+
+        private DiceSimulation Simulate()
+        {
+            return new DiceSimulation();
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// This is meant to hold as much self-knowledge about a dice roll as possible without rendering logic.
+    /// I am including computed properties and .ToStrings() for dev-speed and replays.
+    /// </summary>
+    public record struct DiceSimulation()
+    {
+        public int[] possible_outcomes { get; set; } = new int[] { 1, 2, 3, 4, 5, 6 };
+        public int[] favorable_outcomes { get; set; } = new int[] { 5, 6 };
+        public double expected_probability => favorable_outcomes.Length * 1.0 / possible_outcomes.Length;
     }
 }

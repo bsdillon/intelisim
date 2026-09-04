@@ -1,52 +1,33 @@
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
+using Serilog.Core;
 
 namespace range;
 
-[ApiController]
-public class DiceWsController : ControllerBase
-{
-    private readonly DiceHtmlRenderer _html;
-
-    public DiceWsController(DiceHtmlRenderer html) => _html = html;
-
-    [Route("/ws/dice")]
-    public async Task Get()
-    {
-        if (!HttpContext.WebSockets.IsWebSocketRequest)
-        {
-            HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            return;
-        }
-
-        using var socket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-        var session = new DiceSession(socket, _html);
-        await session.RunAsync(HttpContext.RequestAborted);
-    }
-}
-
 public sealed class DiceSession
 {
-    private readonly WebSocket _ws;
-    private readonly DiceHtmlRenderer _html;
+    private readonly WebSocket socket;
+    private readonly DiceHtmlRenderer html;
     private CancellationTokenSource? cancellationTokenSource;
-    private readonly List<int> _lastFrames = new();
+    private readonly List<int> lastFrames = new();
+    private readonly Logger logger;
     private static readonly string[] Faces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
 
-    public DiceSession(WebSocket ws, DiceHtmlRenderer html)
+    public DiceSession(WebSocket socket, DiceHtmlRenderer html, Logger logger)
     {
-        _ws = ws;
-        _html = html;
+        this.socket = socket;
+        this.html = html;
+        this.logger = logger;
     }
+
 
     public async Task RunAsync(CancellationToken cancellationToken)
     {
         var buffer = new byte[8 * 1024];
-        while (_ws.State == WebSocketState.Open && !cancellationToken.IsCancellationRequested)
+        while (socket.State == WebSocketState.Open && !cancellationToken.IsCancellationRequested)
         {
-            var result = await _ws.ReceiveAsync(buffer, cancellationToken);
+            var result = await socket.ReceiveAsync(buffer, cancellationToken);
             if (result.MessageType == WebSocketMessageType.Close) break;
 
             var json = Encoding.UTF8.GetString(buffer, 0, result.Count);
@@ -61,7 +42,7 @@ public sealed class DiceSession
                     break;
                 case "stop":
                     cancellationTokenSource?.Cancel();
-                    await SendAsync(_html.Status("Stopped"));
+                    await SendAsync(html.Status("Stopped"));
                     break;
                 case "replay":
                     cancellationTokenSource?.Cancel();
@@ -72,23 +53,23 @@ public sealed class DiceSession
         }
 
         cancellationTokenSource?.Cancel();
-        if (_ws.State == WebSocketState.Open)
-            await _ws.CloseAsync(WebSocketCloseStatus.NormalClosure, "done", CancellationToken.None);
+        if (socket.State == WebSocketState.Open)
+            await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "done", CancellationToken.None);
     }
 
     private async Task RollAsync(CancellationToken ct, bool replay)
     {
-        var frames = replay && _lastFrames.Count > 0
-            ? _lastFrames.ToList()
+        var frames = replay && lastFrames.Count > 0
+            ? lastFrames.ToList()
             : GenerateFrames();
 
         if (!replay)
         {
-            _lastFrames.Clear();
-            _lastFrames.AddRange(frames);
+            lastFrames.Clear();
+            lastFrames.AddRange(frames);
         }
 
-        await SendAsync(_html.Status(replay ? "Replaying…" : "Rolling…"));
+        await SendAsync(html.Status(replay ? "Replaying…" : "Rolling…"));
 
         try
         {
@@ -96,13 +77,13 @@ public sealed class DiceSession
             {
                 ct.ThrowIfCancellationRequested();
                 var final = i == frames.Count - 1;
-                await SendAsync(_html.Die(frames[i], spinning: !final));
+                await SendAsync(html.Die(frames[i], spinning: !final));
                 await Task.Delay(final ? 0 : 80, ct);
             }
 
-            await SendAsync(_html.Status($"Result: {frames[^1]}"));
+            await SendAsync(html.Status($"Result: {frames[^1]}"));
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException exception)
         {
             // stop is the expected path
         }
@@ -110,17 +91,18 @@ public sealed class DiceSession
 
     private static List<int> GenerateFrames()
     {
+        // todo: refactor the magic numbers into descriptive variables.
         var rng = Random.Shared;
         var n = rng.Next(12, 20);
         var frames = Enumerable.Range(0, n).Select(_ => rng.Next(1, 7)).ToList();
-        frames[^1] = rng.Next(1, 7); // "true" result
+        frames[^1] = rng.Next(1, 7);
         return frames;
     }
 
     private async Task SendAsync(string html)
     {
         var bytes = Encoding.UTF8.GetBytes(html);
-        await _ws.SendAsync(bytes, WebSocketMessageType.Text, endOfMessage: true, CancellationToken.None);
+        await socket.SendAsync(bytes, WebSocketMessageType.Text, endOfMessage: true, CancellationToken.None);
     }
 
     private static string ExtractCmd(string json)
