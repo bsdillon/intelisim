@@ -139,9 +139,18 @@ namespace range
 
         #region monte_carlo_dice_sim
 
+        public async Task<IActionResult> OnGetOtherSimulations()
+        {
+            logger.Information($"{nameof(OnGetOtherSimulations)}");
+            return Partial("_DiceSimulation", Simulate());
+        }
+
         private DiceSimulation Simulate()
         {
-            return new DiceSimulation();
+            return new DiceSimulation(description: "Probability Greater than 4.") with
+            {
+                favorable_outcomes = new[] { 4 }
+            };
         }
 
         #endregion
@@ -151,10 +160,13 @@ namespace range
     /// This is meant to hold as much self-knowledge about a dice roll as possible without rendering logic.
     /// I am including computed properties and .ToStrings() for dev-speed and replays.
     /// </summary>
-    public record struct DiceSimulation()
+    public record struct DiceSimulation(string description)
     {
+        public string description { get; set; } = string.Empty;
         public int[] possible_outcomes { get; set; } = new int[] { 1, 2, 3, 4, 5, 6 };
         public int[] favorable_outcomes { get; set; } = new int[] { 5, 6 };
         public double expected_probability => favorable_outcomes.Length * 1.0 / possible_outcomes.Length;
+        public int trials { get; set; } = 1;
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿@page
+@using IslandEvents = range.IslandEvents
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -9,7 +10,7 @@
 
     <stack>
 
-        <div style="">
+        <div>
             <island url="/profile/avatar" event="Revealed">
                 <div class="alert alert-info d-flex justify-content-center vertical-align-center">
                     <div class="spinner-border" role="status">

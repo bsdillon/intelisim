@@ -1,0 +1,13 @@
+@model DiceSimulation
+
+<div>
+    <h1>Dice Simulation:</h1>
+    <label for="">Favorable Outcomes</label>
+    <ul>
+        @foreach (var outcome in @Model.favorable_outcomes)
+        {
+            <li>@outcome</li>
+        }
+    </ul>
+</div>
+

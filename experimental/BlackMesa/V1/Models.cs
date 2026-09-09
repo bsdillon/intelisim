@@ -69,7 +69,7 @@ public record struct Snapshot
 {
 }
 
-public abstract class Model
+public abstract class Model(int? seed)
 {
     public int T { get; protected set; }
     public required int Seed { get; init; }
@@ -77,7 +77,7 @@ public abstract class Model
     protected ISpace Space { get; }
     protected IScheduler Scheduler { get; }
     protected DataCollector Collector { get; }
-    protected List<Agent> Agents { get; }
+    protected List<Agent> Agents { get; } = [];
 
     public void Step()
     {
@@ -93,6 +93,11 @@ public abstract class Model
     public void Run(int ticks)
     {
         for (var i = 0; i < ticks; i++) Step();
+    }
+
+    public void Add(Agent agent)
+    {
+        Agents.Add(agent);
     }
 
     protected abstract void TickEnvironment();

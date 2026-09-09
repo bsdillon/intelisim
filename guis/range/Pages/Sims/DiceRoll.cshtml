@@ -1,4 +1,5 @@
 ﻿@page
+@using range;
 @model DiceRollModel
 
 @{
@@ -48,6 +49,31 @@
     </div>
 }
 
+@* hx-page="/Sims/DiceRoll" *@
+@* hx-get="OtherSimulations" *@
+<div id="other_sims">
+    <h1>Misc. sims</h1>
+    <button class="btn btn-accent"
+            hx-get="@Url.Page("/Sims/DiceRoll", "OtherSimulations")"
+            hx-swap="outerHtml"
+    >
+        Load (reg button)
+    </button>
+
+    <island
+        page="/Sims/DiceRoll"
+        handler="OtherSimulations"
+        render-for="@Model.Die"
+        event="Click"
+        swap="OuterHTML"
+        class="btn btn-accent">
+
+        Load (island ver.)
+
+    </island>
+
+
+</div>
 
 <style>
     .spin {
