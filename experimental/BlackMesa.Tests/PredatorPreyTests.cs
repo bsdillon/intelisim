@@ -10,10 +10,19 @@ public class PredatorPreyTests
     {
         var simulation = new PredatorPreySimulation(seed: 42);
 
-        simulation.Run(10_000);
+        simulation.Run(100);
 
-        Console.WriteLine(simulation.Model.Population);
-        Console.WriteLine(simulation.Model.PredatorRatio);
+        Console.WriteLine($"Ticks:      {simulation.Model.Tick}");
+        Console.WriteLine($"Sheep:      {simulation.Model.PreyCount}");
+        Console.WriteLine($"Wolves:     {simulation.Model.PredatorCount}");
+        Console.WriteLine($"Population: {simulation.Model.Population}");
+        Console.WriteLine($"Predator:   {simulation.Model.PredatorRatio:P2}");
+
+
+        // simulation.Run(10_000);
+        //
+        // Console.WriteLine(simulation.Model.Population);
+        // Console.WriteLine(simulation.Model.PredatorRatio);
 
         // todo: uncommnet and test the following...
 
@@ -34,6 +43,16 @@ public sealed class PredatorPreyModel : Model
     {
         SheepScheduler = new RandomScheduler<Sheep>(Random);
         WolfScheduler = new RandomScheduler<Wolf>(Random);
+    }
+
+    public override void Step()
+    {
+        // Tick++;
+
+        base.Step(); // Do I need this over Tick?
+
+        SheepScheduler.Step(sheep => sheep.Step());
+        WolfScheduler.Step(wolf => wolf.Step());
     }
 
     public List<Sheep> Sheep { get; } = [];

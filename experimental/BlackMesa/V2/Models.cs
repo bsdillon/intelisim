@@ -46,46 +46,13 @@ public abstract class Model(int? seed = null)
             ? new Random(seed.Value)
             : Random.Shared;
 
-    public int Tick { get; internal set; }
+    public int Tick { get; protected internal set; }
 
     public virtual void Step()
     {
         Tick++;
     }
 }
-
-//
-// public abstract class Model(int? seed = null)
-// {
-//     public Random Random { get; } =
-//         seed.HasValue
-//             ? new Random(seed.Value)
-//             : Random.Shared;
-//
-//     public int Tick { get; internal set; }
-// }
-//
-// //
-// public abstract class Model
-// {
-//     public int? seed { get; set; }
-//     
-//     public Random Random { get; } =
-//         seed.HasValue
-//             ? new Random(seed.Value)
-//             : Random.Shared;
-//
-//     public int Tick { get; internal set; }
-//
-//
-//     protected Model(int? seed = null)
-//     {
-//         Random = this.seed.HasValue
-//             ? new Random(seed.Value)
-//             : Random.Shared;
-//     }
-//
-// }
 
 public abstract class Agent<TModel>(TModel model)
 {
