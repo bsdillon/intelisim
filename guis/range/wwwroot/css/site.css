@@ -1,23 +1,59 @@
+/* New CSS page transition trick
+ https://www.youtube.com/watch?v=XH1G58QqPIM
+ */
+
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-group(page-content) {
+    animation-duration: 1s;
+    animation-timing-function: ease;
+}
+
+::view-transition-old(page-content) {
+    animation-name: slide-out;
+}
+
+::view-transition-new(page-content) {
+    animation-name: slide-in;
+}
+
+main {
+    view-transition-name: page-content;
+}
+
+@keyframes slide-out {
+    to {
+        translate: -100vw;
+    }
+}
+
+@keyframes slide-in {
+    from {
+        translate: 100vw;
+    }
+}
 
 /* flex and grid helpers */
 
 .row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
 }
 
 .stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
 }
 
 .center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
