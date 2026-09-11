@@ -304,3 +304,17 @@ public static class SheepSpecs
     public static Spec<Sheep> Dead =>
         new(x => x.IsDead);
 }
+
+public record PredatorPreyParameters(
+    int Sheep,
+    int Wolves,
+    int StartingSheepEnergy,
+    int StartingWolfEnergy,
+    int GrassEnergy,
+    int WolfHuntEnergy,
+    int SheepReproductionThreshold,
+    int WolfReproductionThreshold,
+    int SheepReproductionCost,
+    int WolfReproductionCost);
+
+    
