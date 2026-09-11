@@ -1,4 +1,4 @@
-namespace BlackMesa;
+namespace BlackMesa.V1;
 
 public readonly record struct HaulParams(
     int Seed,

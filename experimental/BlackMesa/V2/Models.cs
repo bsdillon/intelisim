@@ -47,9 +47,25 @@ public abstract class Model(int? seed = null)
             : Random.Shared;
 
     public int Tick { get; internal set; }
+
+    public virtual void Step()
+    {
+        Tick++;
+    }
 }
 
 //
+// public abstract class Model(int? seed = null)
+// {
+//     public Random Random { get; } =
+//         seed.HasValue
+//             ? new Random(seed.Value)
+//             : Random.Shared;
+//
+//     public int Tick { get; internal set; }
+// }
+//
+// //
 // public abstract class Model
 // {
 //     public int? seed { get; set; }

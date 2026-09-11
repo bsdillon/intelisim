@@ -32,13 +32,9 @@ public sealed class PredatorPreyModel : Model
     public PredatorPreyModel(int? seed = null)
         : base(seed)
     {
+        SheepScheduler = new RandomScheduler<Sheep>(Random);
+        WolfScheduler = new RandomScheduler<Wolf>(Random);
     }
-    // public PredatorPreyModel(int? seed = null)
-    //     : base(seed)
-    // {
-    //     SheepScheduler = new(Random);
-    //     WolfScheduler = new(Random);
-    // }
 
     public List<Sheep> Sheep { get; } = [];
 
@@ -91,10 +87,10 @@ public sealed class PredatorPreyModel : Model
         WolfScheduler.Remove(wolf);
     }
 
-    protected override void TickEnvironment()
-    {
-        throw new NotImplementedException();
-    }
+    // protected override void TickEnvironment()
+    // {
+    //     throw new NotImplementedException();
+    // }
 }
 
 public sealed class Wolf(PredatorPreyModel model)
@@ -180,9 +176,9 @@ public sealed class Farm : Model
     {
     }
 
-    protected override void TickEnvironment()
-    {
-    }
+    // protected override void TickEnvironment()
+    // {
+    // }
 
     public void Remove(Sheep sheep)
     {
@@ -291,10 +287,12 @@ public sealed class PredatorPreySimulation : Simulation
 
     public PredatorPreySimulation(int? seed = null)
     {
-        Model = new PredatorPreyModel
-        {
-            Seed = seed ?? Environment.TickCount
-        };
+        Model = new PredatorPreyModel(seed);
+
+        // Model = new PredatorPreyModel
+        // {
+        //     Seed = seed ?? Environment.TickCount
+        // };
     }
 
     protected override void Initialize()

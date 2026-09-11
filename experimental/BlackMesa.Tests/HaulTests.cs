@@ -1,4 +1,5 @@
 ﻿using BlackMesa;
+using BlackMesa.V1;
 using BlackMesa.V2;
 
 namespace BlackMesa.Tests;

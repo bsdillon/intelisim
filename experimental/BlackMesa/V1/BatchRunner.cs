@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
 using Ardalis.SmartEnum;
 
-namespace BlackMesa;
+namespace BlackMesa.V1;
 
 public sealed class BatchRunner
 {
