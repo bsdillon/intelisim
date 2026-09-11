@@ -1,10 +1,16 @@
+using BlackMesa.Tests.XUnitSupport;
 using BlackMesa.V2;
 using NSpecifications;
+using Xunit.Abstractions;
 
 namespace BlackMesa.Tests;
 
-public class PredatorPreyTests
+public class PredatorPreyTests : XUnitBaseTest
 {
+    public PredatorPreyTests(ITestOutputHelper output) : base(output)
+    {
+    }
+
     [Fact]
     public void BasicSim()
     {
@@ -12,17 +18,17 @@ public class PredatorPreyTests
 
         simulation.Run(100);
 
-        Console.WriteLine($"Ticks:      {simulation.Model.Tick}");
-        Console.WriteLine($"Sheep:      {simulation.Model.PreyCount}");
-        Console.WriteLine($"Wolves:     {simulation.Model.PredatorCount}");
-        Console.WriteLine($"Population: {simulation.Model.Population}");
-        Console.WriteLine($"Predator:   {simulation.Model.PredatorRatio:P2}");
+        logger.Information($"Ticks:      {simulation.Model.Tick}");
+        logger.Information($"Sheep:      {simulation.Model.PreyCount}");
+        logger.Information($"Wolves:     {simulation.Model.PredatorCount}");
+        logger.Information($"Population: {simulation.Model.Population}");
+        logger.Information($"Predator:   {simulation.Model.PredatorRatio:P2}");
 
 
         // simulation.Run(10_000);
         //
-        // Console.WriteLine(simulation.Model.Population);
-        // Console.WriteLine(simulation.Model.PredatorRatio);
+        // logger.Information(simulation.Model.Population);
+        // logger.Information(simulation.Model.PredatorRatio);
 
         // todo: uncommnet and test the following...
 
