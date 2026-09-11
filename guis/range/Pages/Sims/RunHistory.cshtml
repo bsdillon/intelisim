@@ -1,0 +1,58 @@
+@page
+@model range.RunHistory
+
+@{
+    // Layout = null;
+    // var logs = @Model.Logs;
+    // var log_count = @Model.Logs.Length;
+}
+
+<div>
+
+    <h1>Log Histories</h1>
+
+
+    <h3>
+        Search Simulations
+        <span class="htmx-indicator">
+            <img src="/img/loaders/bars.svg" alt=""/> Searching...
+        </span>
+    </h3>
+
+
+    @* @Html.AntiForgeryToken() *@
+
+    @* <input class="form-control" *@
+    @*        type="search" *@
+    @*        name="search" *@
+    @*        placeholder="Begin Typing To Search Logs..." *@
+    @*        hx-post="@Url.Page("/Sims/RunHistory", "Search")" *@
+    @*        hx-trigger="input changed delay:50ms, keyup[key=='Enter'], load" *@
+    @*        hx-target="#search-results" *@
+    @*        hx-include="closest form" *@
+    @*        hx-indicator=".htmx-indicator"/> *@
+
+
+    @* hx-page="/Sims/RunHistory" *@
+    @* hx-page-handler="Search" *@
+    <input class="form-control" type="search"
+           name="search" placeholder="Begin Typing To Search Logs..."
+           hx-post="@Url.Page("/Sims/RunHistory", "Search")"
+           hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load"
+           hx-target="#search-results"
+           hx-indicator=".htmx-indicator"/>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Content</th>
+        </tr>
+        </thead>
+        <tbody id="search-results">
+        @* <partial name="_SerilogRecords"></partial> *@
+        </tbody>
+    </table>
+
+</div>

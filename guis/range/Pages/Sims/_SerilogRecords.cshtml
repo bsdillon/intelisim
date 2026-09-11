@@ -1,0 +1,15 @@
+@model List<range.SerilogRecord>
+
+@* @model string *@
+
+@{
+}
+
+@foreach (var record in Model)
+{
+    <tr>
+        <td>@record.raw_date</td>
+        <td>@record.log_type</td>
+        <td>@record.content</td>
+    </tr>
+}

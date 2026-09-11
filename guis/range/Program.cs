@@ -1,3 +1,4 @@
+using CodeMechanic.Shargs;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +12,11 @@ var logger = new LoggerConfiguration()
     )
     .CreateLogger();
 
+var argsmap = new ArgsMap(args);
 
 builder.Services.AddOutputCache();
 builder.Services.AddResponseCaching();
+builder.Services.AddSingleton(argsmap);
 builder.Services.AddSingleton(logger);
 builder.Services.AddSingleton<DiceHtmlRenderer>();
 builder.Services.AddControllers();

@@ -1,8 +1,21 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery Antiforgery
+
+@{
+    var csrfToken = Antiforgery.GetAndStoreTokens(Context).RequestToken;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <meta name="csrf-token" content="@csrfToken">
+
+    @* <meta name="csrf-token" *@
+    @*       content="@Antiforgery.GetAndStoreTokens(HttpContext).RequestToken"> *@
+
     <title>@ViewData["Title"] - range</title>
     <script type="importmap"></script>
 
@@ -28,6 +41,7 @@
     var links = new string[] { "Lab01" };
 }
 <body>
+
 <header>
     <range-navbar links="@links">
     </range-navbar>
@@ -36,6 +50,13 @@
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
+
+    <script>
+        document.body.addEventListener("htmx:configRequest", function (evt) {
+            evt.detail.headers["RequestVerificationToken"] =
+                document.querySelector('meta[name="csrf-token"]').content;
+        });
+    </script>
 </div>
 
 <footer class="border-top footer text-muted">
@@ -48,4 +69,6 @@
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
+
