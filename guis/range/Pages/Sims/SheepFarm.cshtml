@@ -1,0 +1,81 @@
+@page
+@model range.SheepFarm
+
+@{
+    // Layout = null;
+}
+
+<div x-data="setup_farm">
+    <h1>Sheep Farm</h1>
+
+    <div id="sheep_controls">
+
+        <div :class="views.controls.classname">
+            <div class="card w-96 bg-base-100 shadow-sm">
+                <div class="card-body">
+                    <div class="flex justify-between">
+                        <h2 class="text-3xl font-bold">Controls</h2>
+                        @* <span class="text-xl">$29/mo</span> *@
+                    </div>
+                    <div class="mt-6 gap-10 flex flex-row">
+                        <button class="btn btn-primary">Reset</button>
+                        <button class="btn btn-primary">Play</button>
+                        <button class="btn btn-primary">Step</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div :class="views.model_params.classname">
+            <div x-data="views.model_params" class="card w-96 bg-base-100 shadow-sm">
+                <div class="card-body">
+                    <div class="flex justify-between">
+                        <h2 class="text-3xl font-bold">Model Parameters</h2>
+                    </div>
+                    <div class="mt-6 gap-10 flex flex-row">
+                        <form-control>
+                            <label for="">Seed</label>
+                            <input placeholder="0"/>
+                        </form-control>
+                        <button class="btn btn-primary">Reseed</button>
+                    </div>
+
+                    <div x-data="params" class="flex flex-col items-center justify-center">
+                        @* <slider min="0" max="10"></slider> *@
+                        <input x-data="grass_regrowth_time" type="range" :min="min" :max="max" :value="value"
+                               class="range range-neutral"/>
+
+                        <input x-data="initial_sheep_population" type="range" :min="min" :max="max" :value="value"
+                               class="range text-blue-300 [--range-bg:orange] [--range-thumb:blue] [--range-fill:0]"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function setup_farm() {
+        return {
+            views: {
+                controls: {
+                    show: true,
+                    animated: false,
+                    get classname() {
+                        return !!this.animated ? "aura aura-sm aura-dual text-orange-600 bg-yellow-200 duration-5000" : 'card text-orange-600 bg-base-100 w-96 shadow-sm';
+                    }
+                },
+                model_params: {
+                    animated: false,
+                    get classname() {
+                        return !!this.animated ? "aura aura-sm text-cyan-600 bg-yellow-200 duration-5000" : 'card bg-base-100  text-cyan-600  w-96 shadow-sm';
+                    },
+                    params: {
+                        grass_regrowth_time: {min: 0, max: 100, value: 25},
+                        initial_sheep_population: {min: 0, max: 100, value: 50}
+                    }
+                }
+            }
+        }
+    }
+</script>
