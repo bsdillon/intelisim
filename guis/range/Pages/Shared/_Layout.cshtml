@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Antiforgery
+@using range.Pages.Shared.Components
 @inject IAntiforgery Antiforgery
 
 @{
@@ -13,9 +14,6 @@
 
     <meta name="csrf-token" content="@csrfToken">
 
-    @* <meta name="csrf-token" *@
-    @*       content="@Antiforgery.GetAndStoreTokens(HttpContext).RequestToken"> *@
-
     <title>@ViewData["Title"] - range</title>
     <script type="importmap"></script>
 
@@ -23,7 +21,6 @@
             integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V"
             crossorigin="anonymous"></script>
 
-    @* <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script> *@
     <script src="https://cdn.jsdelivr.net/npm/htmx-ext-ws@2.0.4"></script>
 
     <link
@@ -38,7 +35,18 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
 </head>
 @{
-    var links = new string[] { "Lab01" };
+    var dict = new Dictionary<string, string>()
+    {
+        ["Home"] = "/",
+        ["Lab 01"] = "/Lab01",
+        ["Run History"] = "/Sims/RunHistory",
+    };
+
+    var links = dict.Aggregate(new List<NavbarLink>(), (navbarLinks, pair) =>
+    {
+        navbarLinks.Add(new NavbarLink { name = pair.Key, href = pair.Value });
+        return navbarLinks;
+    }).ToArray();
 }
 <body>
 

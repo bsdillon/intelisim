@@ -1,7 +1,5 @@
 using System.Text.Encodings.Web;
 using CodeMechanic.Types;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace range.Pages.Shared.Components;
@@ -11,7 +9,7 @@ public class Navbar : TagHelper
 {
     private readonly HtmlEncoder _encoder;
 
-    public string[] Links { get; set; } = default(string[]);
+    public NavbarLink[] Links { get; set; } = [];
 
     public Navbar(HtmlEncoder encoder)
     {
@@ -28,7 +26,7 @@ public class Navbar : TagHelper
         string link_elements = (Links.IsNullOrEmpty()
             ? ""
             : Links?
-                .Select(href => $"<li><a href={href}>Homepage</a></li>")
+                .Select(link => $"<li><a href={link.href}>{link.name}</a></li>")
                 .Rollup()) ?? "";
 
         string html_template = """
@@ -63,4 +61,10 @@ public class Navbar : TagHelper
 
         output.Content.SetHtmlContent(html);
     }
+}
+
+public record struct NavbarLink()
+{
+    public string name { get; set; } = "";
+    public string href { get; set; } = "/";
 }

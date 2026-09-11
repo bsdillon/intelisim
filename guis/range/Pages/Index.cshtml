@@ -24,10 +24,13 @@
             <h1>Pick a Lab:</h1>
 
             <stack>
-                <link-button href="Lab01" class="btn btn-primary">
-                    Lab 01
-                </link-button>
+                <template x-for="lab in labs">
 
+                    <link-button href="Lab01" class="btn btn-primary">
+                        Lab 01
+                    </link-button>
+
+                </template>
                 @* <link-button href="Lab02" disabled class="btn btn-primary"> *@
                 @*     Lab 02 *@
                 @* </link-button> *@
@@ -40,4 +43,14 @@
             </stack>
         </ul>
     </stack>
+
+    <script>
+        function setup_labs() {
+            return {
+                labs: [
+                    {name: "", link: "Lab01"}
+                ]
+            }
+        }
+    </script>
 </div>

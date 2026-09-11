@@ -15,7 +15,7 @@ public class PredatorPreyTests : XUnitBaseTest
     [Fact]
     public void BasicSim()
     {
-        var simulation = new PredatorPreySimulation(seed: 42);
+        var simulation = new PredatorPreySimulation(seed: 420);
 
         simulation.Run(10);
 
