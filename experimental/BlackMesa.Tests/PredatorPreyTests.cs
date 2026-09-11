@@ -32,9 +32,13 @@ public sealed class PredatorPreyModel : Model
     public PredatorPreyModel(int? seed = null)
         : base(seed)
     {
-        SheepScheduler = new(Random);
-        WolfScheduler = new(Random);
     }
+    // public PredatorPreyModel(int? seed = null)
+    //     : base(seed)
+    // {
+    //     SheepScheduler = new(Random);
+    //     WolfScheduler = new(Random);
+    // }
 
     public List<Sheep> Sheep { get; } = [];
 
@@ -112,6 +116,10 @@ public sealed class Wolf(PredatorPreyModel model)
     public bool CanReproduce =>
         Energy >= ReproductionThreshold;
 
+    public bool IsDead => Energy <= 0;
+
+    public bool Alive => !IsDead;
+
     public override void Step()
     {
         if (!Alive)
@@ -150,7 +158,7 @@ public sealed class Wolf(PredatorPreyModel model)
 
     public void Die()
     {
-        Kill();
+        Energy = 0;
         Model.Remove(this);
     }
 }
@@ -182,7 +190,8 @@ public sealed class Farm : Model
     }
 }
 
-public sealed class Sheep(Farm model) : Agent<Farm>(model)
+public sealed class Sheep(PredatorPreyModel model) : Agent<PredatorPreyModel>(model)
+// public sealed class Sheep(Farm model) : Agent<Farm>(model)
 {
     // private void Die()
     // {
