@@ -13,19 +13,18 @@ public class XUnitBaseTest
     protected readonly ILogger logger;
     protected readonly string ProjectRoot; // ← always available
 
-    public XUnitBaseTest(ITestOutputHelper output)
+    public XUnitBaseTest(ITestOutputHelper output, bool debug = false)
     {
         // Force the working directory once
         ProjectRoot = ProjectPaths.Root;
         Directory.SetCurrentDirectory(ProjectRoot);
 
-        var tool = new ToolSettings(name: nameof(Tests));
-        tool.Dump(nameof(tool));
+        var tool = new ToolSettings(name: "blackmesa.tests");
+
+        if (debug) tool.Dump(nameof(tool));
 
         string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
             $"{tool.dotfolder}/{tool.name}.log");
-
-        Console.WriteLine("logFilePath:>> " + path);
 
         logger = new LoggerConfiguration()
             .MinimumLevel.Verbose()
@@ -36,7 +35,11 @@ public class XUnitBaseTest
             .CreateLogger()
             .ForContext<XUnitBaseTest>();
 
-        logger.Information($"{nameof(ProjectRoot)} set to :>> {ProjectRoot}");
+        if (debug)
+        {
+            logger.Information("logFilePath:>> " + path);
+            logger.Information($"{nameof(ProjectRoot)} set to :>> {ProjectRoot}");
+        }
     }
 }
 

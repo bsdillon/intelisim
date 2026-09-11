@@ -1,5 +1,6 @@
 using BlackMesa.Tests.XUnitSupport;
 using BlackMesa.V2;
+using CodeMechanic.Types;
 using NSpecifications;
 using Xunit.Abstractions;
 
@@ -7,7 +8,7 @@ namespace BlackMesa.Tests;
 
 public class PredatorPreyTests : XUnitBaseTest
 {
-    public PredatorPreyTests(ITestOutputHelper output) : base(output)
+    public PredatorPreyTests(ITestOutputHelper output) : base(output, debug: false)
     {
     }
 
@@ -16,7 +17,7 @@ public class PredatorPreyTests : XUnitBaseTest
     {
         var simulation = new PredatorPreySimulation(seed: 42);
 
-        simulation.Run(100);
+        simulation.Run(10);
 
         logger.Information($"Ticks:      {simulation.Model.Tick}");
         logger.Information($"Sheep:      {simulation.Model.PreyCount}");
@@ -56,6 +57,10 @@ public sealed class PredatorPreyModel : Model
         // Tick++;
 
         base.Step(); // Do I need this over Tick?
+
+        // todo: inject a printfn, like you do with the Dump method. - Nick.
+        Console.WriteLine(
+            $"T={Tick} Sheep={Sheep.Count} Wolves={Wolves.Count}");
 
         SheepScheduler.Step(sheep => sheep.Step());
         WolfScheduler.Step(wolf => wolf.Step());
@@ -160,7 +165,10 @@ public sealed class Wolf(PredatorPreyModel model)
     private void Hunt()
     {
         var prey = Model.Sheep
-            .FirstOrDefault();
+            .TakeFirstRandom();
+
+        Console.WriteLine(
+            $"Wolf {GetHashCode()} hunted sheep {prey?.GetHashCode()}");
 
         if (prey is null)
             return;

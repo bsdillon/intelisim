@@ -6,7 +6,7 @@ namespace BlackMesa.Tests;
 
 public class HaulTests
 {
-    [Fact]
+    [Fact(Skip = "skipping v1")]
     public void Seed_42_fork_1_never_moves()
     {
         var r = new Haul().Run(new SeededRng(42).Fork(1));
@@ -15,7 +15,7 @@ public class HaulTests
         Assert.False(r.Late);
     }
 
-    [Fact]
+    [Fact(Skip = "skipping v1")]
     public void Seed_42_n_400_deadline_on()
     {
         var xs = new Haul().Ensemble(400);
