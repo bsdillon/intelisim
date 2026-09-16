@@ -33,7 +33,6 @@ public sealed class PredatorPreySimulation : Simulation
     }
 }
 
-
 public sealed class PredatorPreyModel : Model
 {
     public PredatorPreyModel(int? seed = null)
@@ -316,5 +315,3 @@ public record PredatorPreyParameters(
     int WolfReproductionThreshold,
     int SheepReproductionCost,
     int WolfReproductionCost);
-
-    

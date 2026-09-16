@@ -4,8 +4,7 @@ namespace range;
 
 public class SheepFarm : PageModel
 {
-    public void OnGet()
+    public void OnGetReset()
     {
-        
     }
 }

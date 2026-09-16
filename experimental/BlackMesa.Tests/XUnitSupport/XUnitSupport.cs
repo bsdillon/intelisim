@@ -3,6 +3,7 @@ using CodeMechanic.FileSystem;
 using CodeMechanic.Logging;
 using CodeMechanic.Types;
 using Serilog;
+using Xunit;
 using Xunit.Abstractions;
 using Log = Serilog.Log;
 
