@@ -1,6 +1,6 @@
 using BlackMesa.V2;
 
-namespace BlackMesa.Tests;
+namespace BlackMesa.V2;
 
 public sealed class RandomScheduler<TAgent>(
     Random random) : Scheduler<TAgent>

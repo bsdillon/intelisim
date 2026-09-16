@@ -1,7 +1,5 @@
+using BlackMesa.Sims;
 using BlackMesa.Tests.XUnitSupport;
-using BlackMesa.V2;
-using CodeMechanic.Types;
-using NSpecifications;
 using Xunit;
 using Xunit.Abstractions;
 

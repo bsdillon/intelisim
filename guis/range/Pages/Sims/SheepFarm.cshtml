@@ -5,54 +5,104 @@
     // Layout = null;
 }
 
-<div x-data="setup_farm">
-    <h1>Sheep Farm</h1>
 
-    <div id="sheep_controls">
 
-        <div :class="views.controls.classname">
-            <div class="card w-96 bg-base-100 shadow-sm">
-                <div class="card-body">
-                    <div class="flex justify-between">
-                        <h2 class="text-3xl font-bold">Controls</h2>
-                        @* <span class="text-xl">$29/mo</span> *@
-                    </div>
-                    <div class="mt-6 gap-10 flex flex-row">
-                        <button class="btn btn-primary">Reset</button>
-                        <button class="btn btn-primary">Play</button>
-                        <button class="btn btn-primary">Step</button>
-                    </div>
-                </div>
+<div x-data="setup_farm" class="flex flex-col items-center m-4">
+    @* style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);" *@
+    <div
+        class="hero grid-row-1"
+    >
+        <div class="hero-overlay"></div>
+        <div class="hero-content text-neutral-content text-center">
+            <div class="max-w-md">
+                <h1 class="mb-5 text-5xl font-bold">Sheep 🐑 Farm</h1>
             </div>
         </div>
+    </div>
 
-        <div :class="views.model_params.classname">
-            <div x-data="views.model_params" class="card w-96 bg-base-100 shadow-sm">
-                <div class="card-body">
-                    <div class="flex justify-between">
-                        <h2 class="text-3xl font-bold">Model Parameters</h2>
-                    </div>
-                    <div class="mt-6 gap-10 flex flex-row">
-                        <form-control>
-                            <label for="">Seed</label>
-                            <input placeholder="0"/>
-                        </form-control>
-                        <button class="btn btn-primary">Reseed</button>
-                    </div>
+    <details class="collapse bg-base-100 border border-base-300" name="sheep-farm-explanation">
+        <summary class="collapse-title font-semibold">Explanation</summary>
+        <div class="collapse-content text-sm bg-[#ddd]">
 
-                    <div x-data="params" class="flex flex-col items-center justify-center">
-                        @* <slider min="0" max="10"></slider> *@
-                        <input x-data="grass_regrowth_time" type="range" :min="min" :max="max" :value="value"
-                               class="range range-neutral"/>
+            <markdown>
+                ## Stats We Want
+                - final sheep population
+                - final wolf population
+                - maximum sheep population
+                - maximum wolf population
+                - time to extinction
+                - whether coexistence occurred
+                - average population
+                - population variance
 
-                        <input x-data="initial_sheep_population" type="range" :min="min" :max="max" :value="value"
-                               class="range text-blue-300 [--range-bg:orange] [--range-thumb:blue] [--range-fill:0]"/>
+                ## UI - Sample of Farm statistics
+
+                ┌────────────────┐ ┌────────────────┐ ┌────────────────┐
+                │ 🐑 Coexistence │ │ 🐺 Extinction │ │ 🐑 Extinction │
+                │ 37.4% │ │ 18.2 ticks │ │ 42.7 ticks │
+                └────────────────┘ └────────────────┘ └────────────────┘
+            </markdown>
+        </div>
+    </details>
+
+    <div id="grid" class="grid grid-cols-2 grid-rows-2">
+
+
+        <div id="farm_controls" class="grid-row-2">
+
+            <div :class="views.controls.classname">
+                <div class="card w-96 bg-base-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="flex justify-between">
+                            <h2 class="text-3xl font-bold">Controls</h2>
+                            @* <span class="text-xl">$29/mo</span> *@
+                        </div>
+                        <div class="mt-6 gap-10 flex flex-row">
+                            <button hx-get="Reset" class="btn btn-primary">Reset</button>
+                            <button hx-get="Play" class="btn btn-primary">Play</button>
+                            <button hx-get="Step" class="btn btn-primary">Step</button>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div :class="views.model_params.classname">
+                <div x-data="views.model_params" class="card w-96 bg-base-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="flex justify-between">
+                            <h2 class="text-3xl font-bold">Model Parameters</h2>
+                        </div>
+                        <div class="mt-6 gap-10 flex flex-row">
+                            <form-control>
+                                <label for="">Seed</label>
+                                <input placeholder="0"/>
+                            </form-control>
+                            <button class="btn btn-primary">Reseed</button>
+                        </div>
+
+                        <div x-data="params" class="flex flex-col items-center justify-center">
+                            @* <slider min="0" max="10"></slider> *@
+                            <input x-data="grass_regrowth_time" type="range" :min="min" :max="max" :value="value"
+                                   class="range range-neutral"/>
+
+                            <input x-data="initial_sheep_population" type="range" :min="min" :max="max" :value="value"
+                                   class="range text-blue-300 [--range-bg:orange] [--range-thumb:blue] [--range-fill:0]"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        @* STATS *@
+        <div id="farm_stats">
+            <partial name="Farm/_FarmStats"></partial>
         </div>
 
     </div>
+
+
 </div>
 <script>
     function setup_farm() {
