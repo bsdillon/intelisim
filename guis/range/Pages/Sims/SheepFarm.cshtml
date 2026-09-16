@@ -3,14 +3,15 @@
 
 @{
     // Layout = null;
+    var current_parameters = @Model.FarmParams;
+    var current_simulation = @Model.FarmSim;
+    int seed = @Model.FarmSim.Seed;
 }
-
-
 
 <div x-data="setup_farm" class="flex flex-col items-center m-4">
     @* style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);" *@
     <div
-        class="hero grid-row-1"
+        class="hero"
     >
         <div class="hero-overlay"></div>
         <div class="hero-content text-neutral-content text-center">
@@ -45,8 +46,7 @@
         </div>
     </details>
 
-    <div id="grid" class="grid grid-cols-2 grid-rows-2">
-
+    <div id="grid" class="grid lg:grid-cols-2 grid-flow-col gap-2">
 
         <div id="farm_controls" class="grid-row-2">
 
@@ -55,12 +55,22 @@
                     <div class="card-body">
                         <div class="flex justify-between">
                             <h2 class="text-3xl font-bold">Controls</h2>
-                            @* <span class="text-xl">$29/mo</span> *@
                         </div>
-                        <div class="mt-6 gap-10 flex flex-row">
-                            <button hx-get="Reset" class="btn btn-primary">Reset</button>
-                            <button hx-get="Play" class="btn btn-primary">Play</button>
-                            <button hx-get="Step" class="btn btn-primary">Step</button>
+                        <div class="mt-6 gap-10 flex flex-row"
+                             hx-page="/Sims/SheepFarm"
+                        >
+                            <button
+                                hx-get
+                                hx-page-handler="Reset"
+                                class="btn btn-primary">Reset
+                            </button>
+
+                            <button hx-get
+                                    hx-page-handler="Play" class="btn btn-primary">Play
+                            </button>
+                            <button hx-get
+                                    hx-page-handler="Step" class="btn btn-primary">Step
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -75,7 +85,7 @@
                         <div class="mt-6 gap-10 flex flex-row">
                             <form-control>
                                 <label for="">Seed</label>
-                                <input placeholder="0"/>
+                                <input placeholder="1" value="@seed"/>
                             </form-control>
                             <button class="btn btn-primary">Reseed</button>
                         </div>
@@ -94,6 +104,12 @@
 
         </div>
 
+        <div class="card bg-base-100 shadow">
+            <div class="card-body">
+                <h2 class="card-title">Population over time</h2>
+                <div id="population-chart"></div>
+            </div>
+        </div>
 
         @* STATS *@
         <div id="farm_stats">
@@ -104,6 +120,102 @@
 
 
 </div>
+
+<script src="/vendor/d3/d3.v7.min.js"></script>
+
+<script>
+
+    const populationData = [
+        {tick: 0, sheep: 100, wolves: 20},
+        {tick: 1, sheep: 100, wolves: 20},
+        {tick: 2, sheep: 80, wolves: 20},
+        {tick: 3, sheep: 60, wolves: 40},
+        {tick: 4, sheep: 20, wolves: 60},
+        {tick: 5, sheep: 0, wolves: 87},
+        {tick: 6, sheep: 0, wolves: 87},
+        {tick: 7, sheep: 0, wolves: 87},
+        {tick: 8, sheep: 0, wolves: 87},
+        {tick: 9, sheep: 0, wolves: 87},
+        {tick: 10, sheep: 0, wolves: 87}
+    ];
+
+    const width = 800;
+    const height = 400;
+
+    const margin = {
+        top: 20,
+        right: 30,
+        bottom: 45,
+        left: 55
+    };
+
+    const svg = d3.select("#population-chart")
+        .append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("width", "100%")
+        .attr("height", "auto");
+
+    const x = d3.scaleLinear()
+        .domain(d3.extent(populationData, d => d.tick))
+        .range([margin.left, width - margin.right]);
+
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(populationData, d =>
+            Math.max(d.sheep, d.wolves)
+        )])
+        .nice()
+        .range([height - margin.bottom, margin.top]);
+
+    svg.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(x).ticks(10));
+
+    svg.append("g")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(y));
+
+    const line = d3.line()
+        .x(d => x(d.tick))
+        .y(d => y(d.value));
+
+    const sheep = populationData.map(d => ({
+        tick: d.tick,
+        value: d.sheep
+    }));
+
+    const wolves = populationData.map(d => ({
+        tick: d.tick,
+        value: d.wolves
+    }));
+
+    svg.append("path")
+        .datum(sheep)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+
+    svg.append("path")
+        .datum(wolves)
+        .attr("fill", "none")
+        .attr("stroke", "darkred")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+
+    // Labels
+    svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height - 5)
+        .attr("text-anchor", "middle")
+        .text("Tick");
+
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -(height / 2))
+        .attr("y", 15)
+        .attr("text-anchor", "middle")
+        .text("Population");
+</script>
 <script>
     function setup_farm() {
         return {

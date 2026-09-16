@@ -6,29 +6,6 @@
     var farm_sim = @Model.FarmSim;
 }
 
-<template x-if="false">
-
-    <details class="collapse bg-base-100 border border-base-300" name="my-accordion-det-1" open>
-        <summary class="collapse-title font-semibold">Typography Test</summary>
-        <div class="collapse-content text-sm bg-[#ddd]">
-
-            <article class="prose">
-                <h1>Garlic bread with cheese: What the science tells us</h1>
-                <p>
-                    For years parents have espoused the health benefits of eating garlic bread with cheese to their
-                    children, with the food earning such an iconic status in our culture that kids will often dress
-                    up as warm, cheesy loaf for Halloween.
-                </p>
-                <p>
-                    But a recent study shows that the celebrated appetizer may be linked to a series of rabies cases
-                    springing up around the country.
-                </p>
-                <!-- ... -->
-            </article>
-        </div>
-    </details>
-</template>
-
 <section>
 
     @if (farm == null)
@@ -54,7 +31,7 @@
                         ></path>
                     </svg>
                 </div>
-                <div class="stat-title">Downloads</div>
+                <div class="stat-title">Simulations</div>
                 <div class="stat-value">31K</div>
                 <div class="stat-desc">Jan 1st - Feb 1st</div>
             </div>
@@ -75,7 +52,7 @@
                         ></path>
                     </svg>
                 </div>
-                <div class="stat-title">New Users</div>
+                <div class="stat-title">Sheep</div>
                 <div class="stat-value">4,200</div>
                 <div class="stat-desc">↗︎ 400 (22%)</div>
             </div>
@@ -96,12 +73,47 @@
                         ></path>
                     </svg>
                 </div>
-                @* <div class="stat-title">New Registers</div> *@
-                <div class="stat-title">@farm.ToString()</div>
+                <div class="stat-title">Wolves</div>
                 <div class="stat-value">1,200</div>
                 <div class="stat-desc">↘︎ 90 (14%)</div>
             </div>
         </div>
     }
 
+
+
+
+    @* TYPOGRAPHY TEST
+    
+    TODO: tailwind's typography would be very nice here, but the CDN i'm using doesn't seem to work with TW4.
+    Will need to either match versions or vendorize the plugin.
+     *@
+
+    <template x-if="false">
+
+        <details class="collapse bg-base-100 border border-base-300" name="my-accordion-det-1" open>
+            <summary class="collapse-title font-semibold">Typography Test</summary>
+            <div class="collapse-content text-sm bg-[#ddd]">
+
+                <article class="prose">
+                    <h1>Garlic bread with cheese: What the science tells us</h1>
+                    <p>
+                        For years parents have espoused the health benefits of eating garlic bread with cheese to their
+                        children, with the food earning such an iconic status in our culture that kids will often dress
+                        up as warm, cheesy loaf for Halloween.
+                    </p>
+                    <p>
+                        But a recent study shows that the celebrated appetizer may be linked to a series of rabies cases
+                        springing up around the country.
+                    </p>
+                    <!-- ... -->
+                </article>
+            </div>
+        </details>
+    </template>
+
 </section>
+
+
+
+
