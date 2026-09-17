@@ -16,3 +16,13 @@ possible running vehicles, as of this writing.
 [Using these to make backend-happy GUI controls](https://khalidabuhakmeh.com/posts/dynamic-htmx-islands-with-aspnet-core/)
 [Use this as an alternative to Websockets](https://khalidabuhakmeh.com/posts/server-sent-events-in-aspnet-core-and-dotnet-10/)
 
+[Math expression evaluation](https://ncalc.gumbarros.com.br/articles/index.html)
+[Optimizing Monte Carlo simulation of particle movement in 2D space with C++](https://stackoverflow.com/questions/74955564/optimizing-monte-carlo-simulation-of-particle-movement-in-2d-space-with-c)
+
+- [Reducing particle pair checks](https://gameprogrammingpatterns.com/spatial-partition.html)
+- ...
+
+
+
+
+
