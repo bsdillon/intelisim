@@ -23,31 +23,6 @@ public class SheepFarm(Logger logger, ArgsMap arguments) : RazorHatPage(logger, 
         return Page();
     }
 
-
-    /// <summary>
-    /// A test, to prove islands will self-update
-    /// </summary>
-    /// <returns></returns>
-    public IActionResult OnGetRun()
-    {
-        logger.Information($"{nameof(OnGetRun)}");
-
-        // TODO:
-        // Run the actual simulation.
-        // Persist the run/seed/parameters/etc.
-        // Pass the resulting simulation/run ID to the child islands.
-
-        var json = """
-                   {
-                       "ticks": 10,
-                       "sheep": 0,
-                       "wolves": 87
-                   }
-                   """;
-
-        return Partial("_SimulationComplete", json);
-    }
-
     public IActionResult OnGetReset()
     {
         logger.Information($"{nameof(OnGetReset)}");
