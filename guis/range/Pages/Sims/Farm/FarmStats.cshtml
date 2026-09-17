@@ -1,0 +1,28 @@
+@page
+@model FarmStats
+
+@{
+    Layout = null;
+}
+
+<div id="farm-stats" class="stats shadow my-4">
+
+    <div class="stat">
+        <div class="stat-title">Ticks</div>
+        <div class="stat-value">@Model.Ticks</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-title">Sheep</div>
+        <div class="stat-value">@Model.Sheep</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-figure text-secondary">
+            🐺
+        </div>
+        <div class="stat-title">Wolves</div>
+        <div class="stat-value">@Model.Wolves</div>
+    </div>
+
+</div>

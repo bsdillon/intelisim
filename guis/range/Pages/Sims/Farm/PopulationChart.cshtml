@@ -1,0 +1,118 @@
+@page
+@model Farm.PopulationChart
+
+@{
+    Layout = null;
+}
+
+<div
+    id="population-chart"
+    class="w-full"
+    x-data='populationChart(@Html.Raw(Model.Json))'
+    x-init="render()">
+
+    <!-- D3 renders here. -->
+
+</div>
+
+<script>
+    function populationChart(data) {
+        return {
+            data,
+
+            render() {
+                const root = d3.select(this.$el);
+
+                const width = 800;
+                const height = 450;
+
+                const margin = {
+                    top: 20,
+                    right: 30,
+                    bottom: 45,
+                    left: 55
+                };
+
+                const svg = root
+                    .append("svg")
+                    .attr("viewBox", `0 0 ${width} ${height}`)
+                    .attr("width", "100%")
+                    .attr("height", "auto")
+                    .style("font-size", "18px");
+
+                // TODO:
+                // Replace this demo data with Model.Json.
+                // Eventually this will be the actual simulation
+                // time-series observations.
+
+                const data = [
+                    {tick: 0, sheep: 100, wolves: 20},
+                    {tick: 1, sheep: 100, wolves: 20},
+                    {tick: 2, sheep: 80, wolves: 20},
+                    {tick: 3, sheep: 60, wolves: 40},
+                    {tick: 4, sheep: 20, wolves: 60},
+                    {tick: 5, sheep: 0, wolves: 87},
+                    {tick: 6, sheep: 0, wolves: 87},
+                    {tick: 7, sheep: 0, wolves: 87},
+                    {tick: 8, sheep: 0, wolves: 87},
+                    {tick: 9, sheep: 0, wolves: 87},
+                    {tick: 10, sheep: 0, wolves: 87}
+                ];
+
+                const x = d3.scaleLinear()
+                    .domain(d3.extent(data, d => d.tick))
+                    .range([margin.left, width - margin.right]);
+
+                const y = d3.scaleLinear()
+                    .domain([
+                        0,
+                        d3.max(data, d => Math.max(d.sheep, d.wolves))
+                    ])
+                    .nice()
+                    .range([height - margin.bottom, margin.top]);
+
+                svg.append("g")
+                    .attr(
+                        "transform",
+                        `translate(0,${height - margin.bottom})`
+                    )
+                    .call(d3.axisBottom(x))
+                    .selectAll("text")
+                    .style("font-size", "18px");
+
+                svg.append("g")
+                    .attr(
+                        "transform",
+                        `translate(${margin.left},0)`
+                    )
+                    .call(d3.axisLeft(y))
+                    .selectAll("text")
+                    .style("font-size", "18px");
+
+                const line = d3.line()
+                    .x(d => x(d.tick))
+                    .y(d => y(d.value));
+
+                for (const [name, values] of [
+                    ["sheep", data.map(d => ({
+                        tick: d.tick,
+                        value: d.sheep
+                    }))],
+                    ["wolves", data.map(d => ({
+                        tick: d.tick,
+                        value: d.wolves
+                    }))]
+                ]) {
+                    svg.append("path")
+                        .datum(values)
+                        .attr("fill", "none")
+                        .attr("stroke", name === "sheep"
+                            ? "steelblue"
+                            : "darkred")
+                        .attr("stroke-width", 2)
+                        .attr("d", line);
+                }
+            }
+        };
+    }
+</script>

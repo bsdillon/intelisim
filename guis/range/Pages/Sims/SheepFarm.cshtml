@@ -9,7 +9,6 @@
 }
 
 <div x-data="setup_farm" class="flex flex-col items-center m-4">
-    @* style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);" *@
     <div
         class="hero"
     >
@@ -21,7 +20,7 @@
         </div>
     </div>
 
-    <details class="collapse bg-base-100 border border-base-300" name="sheep-farm-explanation">
+    <details class="collapse bg-base-100 border border-base-300 mb-4" name="sheep-farm-explanation">
         <summary class="collapse-title font-semibold">Explanation</summary>
         <div class="collapse-content text-sm bg-[#ddd]">
 
@@ -44,11 +43,47 @@
                 └────────────────┘ └────────────────┘ └────────────────┘
             </markdown>
         </div>
+
+
+        @* TYPOGRAPHY TEST
+    
+    TODO: tailwind's typography would be very nice here, but the CDN i'm using doesn't seem to work with TW4.
+    Will need to either match versions or vendorize the plugin.
+     *@
+
+        <template x-if="false">
+
+            <details class="collapse bg-base-100 border border-base-300" name="my-accordion-det-1" open>
+                <summary class="collapse-title font-semibold">Typography Test</summary>
+                <div class="collapse-content text-sm bg-[#ddd]">
+
+                    <article class="prose">
+                        <h1>Garlic bread with cheese: What the science tells us</h1>
+                        <p>
+                            For years parents have espoused the health benefits of eating garlic bread with cheese to
+                            their
+                            children, with the food earning such an iconic status in our culture that kids will often
+                            dress
+                            up as warm, cheesy loaf for Halloween.
+                        </p>
+                        <p>
+                            But a recent study shows that the celebrated appetizer may be linked to a series of rabies
+                            cases
+                            springing up around the country.
+                        </p>
+                        <!-- ... -->
+                    </article>
+                </div>
+            </details>
+        </template>
     </details>
 
-    <div id="grid" class="grid lg:grid-cols-2 grid-flow-col gap-2">
+    <div id="grid" x-data="{ wireframe: false }"
+         :class="wireframe && 'wf-on'"
+         class="grid grid-cols-4 grid-rows-4 sm:auto-rows-[180px] gap-4 grid-flow-dense">
 
-        <div id="farm_controls" class="grid-row-2">
+
+        <div id="farm_controls" class="col-span-2 row-span-2">
 
             <div :class="views.controls.classname">
                 <div class="card w-96 bg-base-100 shadow-sm">
@@ -58,6 +93,8 @@
                         </div>
                         <div class="mt-6 gap-10 flex flex-row"
                              hx-page="/Sims/SheepFarm"
+                             hx-target="#simulation-results"
+                             hx-swap="innerHTML"
                         >
                             <button
                                 hx-get
@@ -65,12 +102,20 @@
                                 class="btn btn-primary">Reset
                             </button>
 
-                            <button hx-get
-                                    hx-page-handler="Play" class="btn btn-primary">Play
+                            <button
+                                class="btn btn-primary"
+                                hx-get
+                                hx-trigger="click"
+                                hx-page-handler="Play"
+                            >
+                                ▶ Play
                             </button>
+
                             <button hx-get
                                     hx-page-handler="Step" class="btn btn-primary">Step
                             </button>
+
+
                         </div>
                     </div>
                 </div>
@@ -102,18 +147,36 @@
                 </div>
             </div>
 
-        </div>
+            <div class="card bg-base-100 w-96 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Additional Options</h2>
+                    <p>The following options are misc. like views, styles, debugging, wip gui components. <br>
+                        Eventually, I'll move those that can be globally applied, to a sidebar.</p>
+                    <details class="collapse bg-base-100 border border-base-300 mb-4"
+                             name="other-options">
+                        <summary class="collapse-title font-semibold">Gui Options</summary>
+                        <div class="collapse-content text-sm bg-[#ddd]">
+                            <label for="">Grid Wireframes</label>
+                            <button @@click="wireframe = !wireframe"
+                                    class="btn btn-accent text-white rounded">
+                                <span x-show="wireframe">Hide</span>
+                                <span x-show="!wireframe">Show</span>
+                            </button>
+                        </div>
+                    </details>
 
-        <div class="card bg-base-100 shadow">
-            <div class="card-body">
-                <h2 class="card-title">Population over time</h2>
-                <div id="population-chart"></div>
+                </div>
             </div>
+
         </div>
 
-        @* STATS *@
-        <div id="farm_stats">
-            <partial name="Farm/_FarmStats"></partial>
+        <div class="p-4">
+
+            <div id="simulation-results" class="m-4">
+                <!-- Simulation results land here. -->
+                ...
+            </div>
+
         </div>
 
     </div>
@@ -123,99 +186,6 @@
 
 <script src="/vendor/d3/d3.v7.min.js"></script>
 
-<script>
-
-    const populationData = [
-        {tick: 0, sheep: 100, wolves: 20},
-        {tick: 1, sheep: 100, wolves: 20},
-        {tick: 2, sheep: 80, wolves: 20},
-        {tick: 3, sheep: 60, wolves: 40},
-        {tick: 4, sheep: 20, wolves: 60},
-        {tick: 5, sheep: 0, wolves: 87},
-        {tick: 6, sheep: 0, wolves: 87},
-        {tick: 7, sheep: 0, wolves: 87},
-        {tick: 8, sheep: 0, wolves: 87},
-        {tick: 9, sheep: 0, wolves: 87},
-        {tick: 10, sheep: 0, wolves: 87}
-    ];
-
-    const width = 800;
-    const height = 400;
-
-    const margin = {
-        top: 20,
-        right: 30,
-        bottom: 45,
-        left: 55
-    };
-
-    const svg = d3.select("#population-chart")
-        .append("svg")
-        .attr("viewBox", `0 0 ${width} ${height}`)
-        .attr("width", "100%")
-        .attr("height", "auto");
-
-    const x = d3.scaleLinear()
-        .domain(d3.extent(populationData, d => d.tick))
-        .range([margin.left, width - margin.right]);
-
-    const y = d3.scaleLinear()
-        .domain([0, d3.max(populationData, d =>
-            Math.max(d.sheep, d.wolves)
-        )])
-        .nice()
-        .range([height - margin.bottom, margin.top]);
-
-    svg.append("g")
-        .attr("transform", `translate(0,${height - margin.bottom})`)
-        .call(d3.axisBottom(x).ticks(10));
-
-    svg.append("g")
-        .attr("transform", `translate(${margin.left},0)`)
-        .call(d3.axisLeft(y));
-
-    const line = d3.line()
-        .x(d => x(d.tick))
-        .y(d => y(d.value));
-
-    const sheep = populationData.map(d => ({
-        tick: d.tick,
-        value: d.sheep
-    }));
-
-    const wolves = populationData.map(d => ({
-        tick: d.tick,
-        value: d.wolves
-    }));
-
-    svg.append("path")
-        .datum(sheep)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 2)
-        .attr("d", line);
-
-    svg.append("path")
-        .datum(wolves)
-        .attr("fill", "none")
-        .attr("stroke", "darkred")
-        .attr("stroke-width", 2)
-        .attr("d", line);
-
-    // Labels
-    svg.append("text")
-        .attr("x", width / 2)
-        .attr("y", height - 5)
-        .attr("text-anchor", "middle")
-        .text("Tick");
-
-    svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -(height / 2))
-        .attr("y", 15)
-        .attr("text-anchor", "middle")
-        .text("Population");
-</script>
 <script>
     function setup_farm() {
         return {
@@ -241,3 +211,16 @@
         }
     }
 </script>
+
+<style>
+    [x-cloak] {
+        display: none !important
+    }
+
+    #grid.wf-on > * {
+        outline: 2px dotted #60a5fa;
+    }
+</style>
+
+
+

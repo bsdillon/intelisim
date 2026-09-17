@@ -1,0 +1,109 @@
+@page
+@model SimulationHistogram
+
+@{
+    Layout = null;
+}
+
+<div
+    id="simulation-histogram"
+    class="w-full"
+    x-data='simulationHistogram(@Html.Raw(Model.Json))'
+    x-init="render()">
+
+    <!-- D3 renders here. -->
+    
+</div>
+
+<script>
+    function simulationHistogram(data) {
+        console.log("simulationHistogram()")
+        return {
+            data,
+
+            render() {
+                const root = d3.select(this.$el);
+
+                // TODO:
+                // Replace with actual final-population observations
+                // from multiple simulation runs.
+
+                const samples = [
+                    0, 0, 0, 0, 5, 8, 12, 14, 17,
+                    21, 24, 28, 30, 35, 40, 42,
+                    45, 48, 52, 55, 60, 64, 70, 75, 80
+                ];
+
+                const width = 800;
+                const height = 400;
+
+                const margin = {
+                    top: 20,
+                    right: 30,
+                    bottom: 50,
+                    left: 55
+                };
+
+                const svg = root
+                    .append("svg")
+                    .attr("viewBox", `0 0 ${width} ${height}`)
+                    .attr("width", "100%")
+                    .attr("height", "auto")
+                    .style("font-size", "18px");
+
+                const x = d3.scaleLinear()
+                    .domain([0, d3.max(samples)])
+                    .nice()
+                    .range([
+                        margin.left,
+                        width - margin.right
+                    ]);
+
+                const bins = d3.histogram()
+                    .domain(x.domain())
+                    .thresholds(x.ticks(12))
+                    (samples);
+
+                const y = d3.scaleLinear()
+                    .domain([0, d3.max(bins, d => d.length)])
+                    .nice()
+                    .range([
+                        height - margin.bottom,
+                        margin.top
+                    ]);
+
+                svg.append("g")
+                    .attr(
+                        "transform",
+                        `translate(0,${height - margin.bottom})`
+                    )
+                    .call(d3.axisBottom(x));
+
+                svg.append("g")
+                    .attr(
+                        "transform",
+                        `translate(${margin.left},0)`
+                    )
+                    .call(d3.axisLeft(y));
+
+                svg.selectAll("rect")
+                    .data(bins)
+                    .join("rect")
+                    .attr("x", d => x(d.x0) + 1)
+                    .attr("y", d => y(d.length))
+                    .attr(
+                        "width",
+                        d => Math.max(
+                            0,
+                            x(d.x1) - x(d.x0) - 2
+                        )
+                    )
+                    .attr(
+                        "height",
+                        d => y(0) - y(d.length)
+                    )
+                    .attr("opacity", 0.75);
+            }
+        };
+    }
+</script>

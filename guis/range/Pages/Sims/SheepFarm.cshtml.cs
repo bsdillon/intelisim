@@ -2,6 +2,7 @@ using BlackMesa.Sims;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Shargs;
 using CodeMechanic.Types;
+using JsonFlatFileDataStore;
 using Microsoft.AspNetCore.Mvc;
 using Serilog.Core;
 using Westwind.AspNetCore.Markdown.Utilities;
@@ -10,13 +11,41 @@ namespace range;
 
 public class SheepFarm(Logger logger, ArgsMap arguments) : RazorHatPage(logger, arguments)
 {
+    private DataStore farm_db;
     public PredatorPreySimulation FarmSim { get; set; } = new(42);
     public PredatorPreyParameters FarmParams { get; set; } = new PredatorPreyParameters();
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
         FarmSim.Dump(printFn: printFn);
         FarmParams.Dump(printFn: printFn);
+        farm_db = new JsonFlatFileDataStore.DataStore("farm_db.json");
+        return Page();
+    }
+
+
+    /// <summary>
+    /// A test, to prove islands will self-update
+    /// </summary>
+    /// <returns></returns>
+    public IActionResult OnGetRun()
+    {
+        logger.Information($"{nameof(OnGetRun)}");
+
+        // TODO:
+        // Run the actual simulation.
+        // Persist the run/seed/parameters/etc.
+        // Pass the resulting simulation/run ID to the child islands.
+
+        var json = """
+                   {
+                       "ticks": 10,
+                       "sheep": 0,
+                       "wolves": 87
+                   }
+                   """;
+
+        return Partial("_SimulationComplete", json);
     }
 
     public IActionResult OnGetReset()
@@ -27,20 +56,32 @@ public class SheepFarm(Logger logger, ArgsMap arguments) : RazorHatPage(logger, 
         return Content("Resetti");
     }
 
-    public IActionResult OnGetPlay()
+    public async Task<IActionResult> OnGetPlay()
     {
-        var simulation = new PredatorPreySimulation(seed: 420);
+        try
+        {
+            var simulation = new PredatorPreySimulation(seed: 420);
+            var sims = farm_db.GetCollection<PredatorPreySimulation>("simulations");
 
-        simulation.Run(10);
+            simulation.Run(50);
 
-        logger.Information($"Ticks:      {simulation.Model.Tick}");
-        logger.Information($"Sheep:      {simulation.Model.PreyCount}");
-        logger.Information($"Wolves:     {simulation.Model.PredatorCount}");
-        logger.Information($"Population: {simulation.Model.Population}");
-        logger.Information($"Predator:   {simulation.Model.PredatorRatio:P2}");
+            logger.Information($"Ticks:      {simulation.Model.Tick}");
+            logger.Information($"Sheep:      {simulation.Model.PreyCount}");
+            logger.Information($"Wolves:     {simulation.Model.PredatorCount}");
+            logger.Information($"Population: {simulation.Model.Population}");
+            logger.Information($"Predator:   {simulation.Model.PredatorRatio:P2}");
+
+            simulation.Dump(printFn: printFn);
+            await sims.InsertOneAsync(simulation);
+        }
+        catch (Exception ex)
+        {
+            logger.Information(ex.ToString());
+            // throw;
+        }
 
 
-        return Content("Played!");
+        return Partial("_SimulationComplete", FarmSim);
     }
 
     public IActionResult OnGetStep()
