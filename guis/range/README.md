@@ -20,9 +20,12 @@ possible running vehicles, as of this writing.
 [Optimizing Monte Carlo simulation of particle movement in 2D space with C++](https://stackoverflow.com/questions/74955564/optimizing-monte-carlo-simulation-of-particle-movement-in-2d-space-with-c)
 
 - [Reducing particle pair checks](https://gameprogrammingpatterns.com/spatial-partition.html)
-- ...
+- [Useful?](https://www.flawofaverages.com/#)
 
+### Math libraries:
 
-
-
+- [Meta Numerics](https://github.com/dcwuser/metanumerics)
+- [BigInteger](find)
+- [Linear Algebra](https://numerics.mathdotnet.com/)
+- [ILNumberics - NumPy- and MATLAB-style array programming](https://ilnumerics.net/#gsc.tab=0)
 
