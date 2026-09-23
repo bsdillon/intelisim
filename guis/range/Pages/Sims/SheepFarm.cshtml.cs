@@ -14,14 +14,17 @@ public class SheepFarm(Logger logger, ArgsMap arguments, DataStore farm_db) : Ra
 {
     // TODO: make this DI injected, according to the docs: https://github.com/ttu/json-flatfile-datastore
     // private readonly DataStore farm_db = new("farm_db.json");
-    public PredatorPreySimulation FarmSim { get; set; } = new(42);
-    public PredatorPreyParameters FarmParams { get; set; } = new PredatorPreyParameters();
     public int Trials { get; set; } = 1;
+    public int Seed { get; set; } = 42;
+    public PredatorPreyParameters FarmParams { get; set; } = new PredatorPreyParameters();
+    public PredatorPreySimulation FarmSim { get; set; }
 
     public IActionResult OnGet()
     {
         if (debug) FarmSim.Dump(printFn: printFn);
         if (debug) FarmParams.Dump(printFn: printFn);
+        FarmSim = new PredatorPreySimulation(FarmParams, Seed);
+
         // farm_db = new JsonFlatFileDataStore.DataStore("farm_db.json");
         return Page();
     }
@@ -29,7 +32,7 @@ public class SheepFarm(Logger logger, ArgsMap arguments, DataStore farm_db) : Ra
     public IActionResult OnGetReset()
     {
         logger.Information($"{nameof(OnGetReset)}");
-        FarmSim = new PredatorPreySimulation(seed: 0);
+        FarmSim = new PredatorPreySimulation(FarmParams, Seed);
         FarmSim.Dump("new");
         return Content("Resetti");
     }
@@ -43,10 +46,9 @@ public class SheepFarm(Logger logger, ArgsMap arguments, DataStore farm_db) : Ra
             var simulations = Enumerable.Range(0, Trials)
                 .Aggregate(new Dictionary<int, PredatorPreySimulation>(), (map, i) =>
                 {
-                    map.TryAdd(i, new PredatorPreySimulation(i));
+                    map.TryAdd(i, new PredatorPreySimulation(FarmParams, i));
                     return map;
                 });
-
 
             var options = new ParallelOptions()
             {
@@ -72,8 +74,10 @@ public class SheepFarm(Logger logger, ArgsMap arguments, DataStore farm_db) : Ra
                 await Task.CompletedTask;
             });
 
+            int total = results.Count;
+            logger.Information($"Total sims completed: {total}");
             await sims_collection.InsertManyAsync(results);
-            
+
             // await Parallel.ForEachAsync(simulations, options, async (kvp, ct) =>
             // {
             //     int seed = kvp.Key;

@@ -5,5 +5,58 @@
       "name": "John",
       "age": 46
     }
+  ],
+  "simulations": [
+    {
+      "seed": 0,
+      "parameters": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "sheep": 0,
+        "wolves": 0,
+        "startingSheepEnergy": 0,
+        "startingWolfEnergy": 0,
+        "grassEnergy": 0,
+        "wolfHuntEnergy": 0,
+        "sheepReproductionThreshold": 0,
+        "wolfReproductionThreshold": 0,
+        "sheepReproductionCost": 0,
+        "wolfReproductionCost": 0
+      },
+      "snapshots": []
+    },
+    {
+      "seed": 0,
+      "parameters": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "sheep": 0,
+        "wolves": 0,
+        "startingSheepEnergy": 0,
+        "startingWolfEnergy": 0,
+        "grassEnergy": 0,
+        "wolfHuntEnergy": 0,
+        "sheepReproductionThreshold": 0,
+        "wolfReproductionThreshold": 0,
+        "sheepReproductionCost": 0,
+        "wolfReproductionCost": 0
+      },
+      "snapshots": []
+    },
+    {
+      "seed": 0,
+      "parameters": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "sheep": 0,
+        "wolves": 0,
+        "startingSheepEnergy": 0,
+        "startingWolfEnergy": 0,
+        "grassEnergy": 0,
+        "wolfHuntEnergy": 0,
+        "sheepReproductionThreshold": 0,
+        "wolfReproductionThreshold": 0,
+        "sheepReproductionCost": 0,
+        "wolfReproductionCost": 0
+      },
+      "snapshots": []
+    }
   ]
 }
