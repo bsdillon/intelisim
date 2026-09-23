@@ -14,11 +14,12 @@ public class SheepFarm(Logger logger, ArgsMap arguments) : RazorHatPage(logger, 
     private DataStore farm_db;
     public PredatorPreySimulation FarmSim { get; set; } = new(42);
     public PredatorPreyParameters FarmParams { get; set; } = new PredatorPreyParameters();
+    public int Trials { get; set; } = 1;
 
     public IActionResult OnGet()
     {
-        FarmSim.Dump(printFn: printFn);
-        FarmParams.Dump(printFn: printFn);
+       if(debug) FarmSim.Dump(printFn: printFn);
+       if(debug) FarmParams.Dump(printFn: printFn);
         farm_db = new JsonFlatFileDataStore.DataStore("farm_db.json");
         return Page();
     }
