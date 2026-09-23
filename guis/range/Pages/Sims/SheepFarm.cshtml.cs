@@ -10,20 +10,39 @@ using Westwind.AspNetCore.Markdown.Utilities;
 
 namespace range;
 
-public class SheepFarm(Logger logger, ArgsMap arguments, DataStore farm_db) : RazorHatPage(logger, arguments)
+public class SheepFarm : RazorHatPage
 {
-    // TODO: make this DI injected, according to the docs: https://github.com/ttu/json-flatfile-datastore
-    // private readonly DataStore farm_db = new("farm_db.json");
+    private readonly DataStore _farmDb;
     public int Trials { get; set; } = 1;
     public int Seed { get; set; } = 42;
-    public PredatorPreyParameters FarmParams { get; set; } = new PredatorPreyParameters();
+
+    public PredatorPreyParameters FarmParams { get; set; } = new()
+    {
+        Sheep = 100,
+        Wolves = 20,
+        StartingSheepEnergy = 10,
+        StartingWolfEnergy = 10,
+        GrassEnergy = 5,
+        WolfHuntEnergy = 5,
+        SheepReproductionThreshold = 20,
+        WolfReproductionThreshold = 20,
+        SheepReproductionCost = 10,
+        WolfReproductionCost = 10
+    };
+
     public PredatorPreySimulation FarmSim { get; set; }
+
+
+    public SheepFarm(Logger logger, ArgsMap arguments, DataStore farmDb) : base(logger, arguments)
+    {
+        _farmDb = farmDb;
+        FarmSim = new PredatorPreySimulation(FarmParams);
+    }
 
     public IActionResult OnGet()
     {
         if (debug) FarmSim.Dump(printFn: printFn);
         if (debug) FarmParams.Dump(printFn: printFn);
-        FarmSim = new PredatorPreySimulation(FarmParams, Seed);
 
         // farm_db = new JsonFlatFileDataStore.DataStore("farm_db.json");
         return Page();
@@ -32,7 +51,7 @@ public class SheepFarm(Logger logger, ArgsMap arguments, DataStore farm_db) : Ra
     public IActionResult OnGetReset()
     {
         logger.Information($"{nameof(OnGetReset)}");
-        FarmSim = new PredatorPreySimulation(FarmParams, Seed);
+        FarmSim = new PredatorPreySimulation(FarmParams);
         FarmSim.Dump("new");
         return Content("Resetti");
     }
@@ -41,14 +60,19 @@ public class SheepFarm(Logger logger, ArgsMap arguments, DataStore farm_db) : Ra
     {
         try
         {
-            var sims_collection = farm_db.GetCollection<SimulationRun>("simulations");
+            var sims_collection = _farmDb.GetCollection<SimulationRun>("simulations");
+
+            // var simulations = Enumerable.Range(0, Trials)
+            //     .Aggregate(new Dictionary<int, PredatorPreySimulation>(), (map, i) =>
+            //     {
+            //         map.TryAdd(i, new PredatorPreySimulation(FarmParams, i));
+            //         return map;
+            //     });
 
             var simulations = Enumerable.Range(0, Trials)
-                .Aggregate(new Dictionary<int, PredatorPreySimulation>(), (map, i) =>
-                {
-                    map.TryAdd(i, new PredatorPreySimulation(FarmParams, i));
-                    return map;
-                });
+                .Select(seed => new PredatorPreySimulation(FarmParams))
+                .ToArray();
+
 
             var options = new ParallelOptions()
             {
@@ -58,18 +82,30 @@ public class SheepFarm(Logger logger, ArgsMap arguments, DataStore farm_db) : Ra
             // var results = new ConcurrentBag<SimulationResult>();
             var results = new ConcurrentBag<SimulationRun>();
 
-            await Parallel.ForEachAsync(simulations, options, async (kvp, ct) =>
+            await Parallel.ForEachAsync(simulations, options, async (simulation, ct) =>
             {
-                int seed = kvp.Key;
-                var simulation = kvp.Value;
+                simulation.Run(Seed, ticks: 120);
 
-                simulation.Run(seed);
+                var run = new SimulationRun(
+                    simulation.Seed,
+                    simulation.Parameters,
+                    simulation.Snapshots);
 
-                results.Add(new SimulationRun(
-                    seed,
-                    FarmParams,
-                    simulation.Snapshots
-                ));
+                results.Add(run);
+
+                logger.Information(
+                    "Seed={Seed}, Snapshots={Snapshots}",
+                    run.Seed,
+                    run.Snapshots.Count);
+
+                foreach (var simulationSnapshot in run.Snapshots)
+                {
+                    logger.Information($"Ticks:      {simulationSnapshot.Tick}");
+                    logger.Information($"Sheep:      {simulationSnapshot.Sheep}");
+                    logger.Information($"Wolves:     {simulationSnapshot.Wolves}");
+                    logger.Information($"Population: {simulationSnapshot.Population}");
+                    logger.Information($"Predator:   {simulationSnapshot.PredatorRatio:P2}");
+                }
 
                 await Task.CompletedTask;
             });

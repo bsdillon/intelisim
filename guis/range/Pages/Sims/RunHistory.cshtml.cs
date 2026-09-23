@@ -50,10 +50,10 @@ public class RunHistory : PageModel
     {
         try
         {
-            blackmesa_log_search.Dump("looking for logs", printFn: logger.Information);
+            // blackmesa_log_search.Dump("looking for logs", printFn: logger.Information);
 
             logfiles = blackmesa_log_search.GetFileNames().ToArray();
-            logfiles.Dump(printFn: logger.Information);
+            // logfiles.Dump(printFn: logger.Information);
 
             var serilog_records = logfiles
                 .Select(f => ReadAllText(f)
@@ -64,7 +64,7 @@ public class RunHistory : PageModel
                 )
                 .ToList();
 
-            serilog_records.Dump("existing logs");
+            // serilog_records.Dump("existing logs");
 
             return serilog_records;
         }

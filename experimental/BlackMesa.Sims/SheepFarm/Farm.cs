@@ -15,7 +15,7 @@ public sealed class Farm : Model
             ? 0
             : (double)Predators / Population;
 
-    public Farm(int? seed = null) : base(seed)
+    public Farm(int? seed = null) //: base(seed)
     {
     }
 

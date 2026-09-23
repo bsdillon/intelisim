@@ -10,14 +10,20 @@ public sealed class PredatorPreySimulation : Simulation
     public List<SimulationSnapshot> Snapshots { get; } = [];
     public PredatorPreyParameters Parameters { get; }
 
-    public PredatorPreySimulation(
-        PredatorPreyParameters parameters,
-        int seed)
+    public PredatorPreySimulation(PredatorPreyParameters parameters)
     {
         Parameters = parameters;
-        Seed = seed;
-        Model = new PredatorPreyModel(seed);
+        Model = new PredatorPreyModel();
     }
+    
+    // public PredatorPreySimulation(
+    //     PredatorPreyParameters parameters,
+    //     int seed)
+    // {
+    //     Parameters = parameters;
+    //     Seed = seed;
+    //     Model = new PredatorPreyModel(seed);
+    // }
     
     //
     // public PredatorPreySimulation(int? seed = null)
@@ -33,6 +39,8 @@ public sealed class PredatorPreySimulation : Simulation
 
     protected override void Initialize()
     {
+        Model.SetSeed(Seed);
+
         for (var i = 0; i < Parameters.Sheep; i++)
             Model.Add(new Sheep(Model));
 
@@ -62,14 +70,14 @@ public sealed class PredatorPreySimulation : Simulation
     }
 }
 
-// public sealed record SimulationResult(
-//     int Seed,
-//     int Ticks,
-//     int Sheep,
-//     int Wolves,
-//     int Population,
-//     double PredatorRatio
-// );
+public sealed record SimulationResult(
+    int Seed,
+    int Ticks,
+    int Sheep,
+    int Wolves,
+    int Population,
+    double PredatorRatio
+);
 
 public sealed record SimulationRun(
     int Seed,
