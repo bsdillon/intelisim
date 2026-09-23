@@ -1,4 +1,5 @@
 using CodeMechanic.Shargs;
+using JsonFlatFileDataStore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ builder.Services.AddOutputCache();
 builder.Services.AddResponseCaching();
 builder.Services.AddSingleton(argsmap);
 builder.Services.AddSingleton(logger);
+builder.Services.AddSingleton<DataStore>(
+    new DataStore("farm_db.json"));
 builder.Services.AddSingleton<DiceHtmlRenderer>();
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
