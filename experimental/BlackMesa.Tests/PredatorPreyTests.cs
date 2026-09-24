@@ -25,13 +25,7 @@ public class PredatorPreyTests : XUnitBaseTest
         logger.Information($"Population: {simulation.Model.Population}");
         logger.Information($"Predator:   {simulation.Model.PredatorRatio:P2}");
 
-
-        // simulation.Run(10_000);
-        //
-        // logger.Information(simulation.Model.Population);
-        // logger.Information(simulation.Model.PredatorRatio);
-
-        // todo: uncommnet and test the following...
+        // todo: uncomment and test the following...
 
         // var result = simulation.RunMany(
         //     iterations: 10_000,

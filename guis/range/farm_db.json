@@ -6217,6 +6217,4296 @@
           "predatorRatio": 0.0
         }
       ]
+    },
+    {
+      "seed": 0,
+      "parameters": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "sheep": 100,
+        "wolves": 20,
+        "startingSheepEnergy": 10,
+        "startingWolfEnergy": 10,
+        "grassEnergy": 5,
+        "wolfHuntEnergy": 5,
+        "sheepReproductionThreshold": 20,
+        "wolfReproductionThreshold": 20,
+        "sheepReproductionCost": 10,
+        "wolfReproductionCost": 10
+      },
+      "snapshots": [
+        {
+          "tick": 1,
+          "sheep": 80,
+          "wolves": 20,
+          "population": 100,
+          "predatorRatio": 0.2
+        },
+        {
+          "tick": 2,
+          "sheep": 60,
+          "wolves": 40,
+          "population": 100,
+          "predatorRatio": 0.4
+        },
+        {
+          "tick": 3,
+          "sheep": 20,
+          "wolves": 60,
+          "population": 80,
+          "predatorRatio": 0.75
+        },
+        {
+          "tick": 4,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 5,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 6,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 7,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 8,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 9,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 10,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 11,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 12,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 13,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 14,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 15,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 16,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 17,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 18,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 19,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 20,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 21,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 22,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 23,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 24,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 25,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 26,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 27,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 28,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 29,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 30,
+          "sheep": 0,
+          "wolves": 73,
+          "population": 73,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 31,
+          "sheep": 0,
+          "wolves": 73,
+          "population": 73,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 32,
+          "sheep": 0,
+          "wolves": 73,
+          "population": 73,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 33,
+          "sheep": 0,
+          "wolves": 65,
+          "population": 65,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 34,
+          "sheep": 0,
+          "wolves": 37,
+          "population": 37,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 35,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 36,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 37,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 38,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 39,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 40,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 41,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 42,
+          "sheep": 0,
+          "wolves": 19,
+          "population": 19,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 43,
+          "sheep": 0,
+          "wolves": 19,
+          "population": 19,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 44,
+          "sheep": 0,
+          "wolves": 19,
+          "population": 19,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 45,
+          "sheep": 0,
+          "wolves": 19,
+          "population": 19,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 46,
+          "sheep": 0,
+          "wolves": 19,
+          "population": 19,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 47,
+          "sheep": 0,
+          "wolves": 12,
+          "population": 12,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 48,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 49,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 50,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 51,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 52,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 53,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 54,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 55,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 56,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 57,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 58,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 59,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 60,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 61,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 62,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 63,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 64,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 65,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 66,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 67,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 68,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 69,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 70,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 71,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 72,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 73,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 74,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 75,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 76,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 77,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 78,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 79,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 80,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 81,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 82,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 83,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 84,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 85,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 86,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 87,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 88,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 89,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 90,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 91,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 92,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 93,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 94,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 95,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 96,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 97,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 98,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 99,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 100,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 101,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 102,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 103,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 104,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 105,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 106,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 107,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 108,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 109,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 110,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 111,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 112,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 113,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 114,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 115,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 116,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 117,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 118,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 119,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 120,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 0,
+      "parameters": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "sheep": 100,
+        "wolves": 20,
+        "startingSheepEnergy": 10,
+        "startingWolfEnergy": 10,
+        "grassEnergy": 5,
+        "wolfHuntEnergy": 5,
+        "sheepReproductionThreshold": 20,
+        "wolfReproductionThreshold": 20,
+        "sheepReproductionCost": 10,
+        "wolfReproductionCost": 10
+      },
+      "snapshots": [
+        {
+          "tick": 1,
+          "sheep": 80,
+          "wolves": 20,
+          "population": 100,
+          "predatorRatio": 0.2
+        },
+        {
+          "tick": 2,
+          "sheep": 60,
+          "wolves": 40,
+          "population": 100,
+          "predatorRatio": 0.4
+        },
+        {
+          "tick": 3,
+          "sheep": 20,
+          "wolves": 60,
+          "population": 80,
+          "predatorRatio": 0.75
+        },
+        {
+          "tick": 4,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 5,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 6,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 7,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 8,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 9,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 10,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 11,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 12,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 13,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 14,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 15,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 16,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 17,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 18,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 19,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 20,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 21,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 22,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 23,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 24,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 25,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 26,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 27,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 28,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 29,
+          "sheep": 0,
+          "wolves": 88,
+          "population": 88,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 30,
+          "sheep": 0,
+          "wolves": 77,
+          "population": 77,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 31,
+          "sheep": 0,
+          "wolves": 77,
+          "population": 77,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 32,
+          "sheep": 0,
+          "wolves": 77,
+          "population": 77,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 33,
+          "sheep": 0,
+          "wolves": 69,
+          "population": 69,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 34,
+          "sheep": 0,
+          "wolves": 41,
+          "population": 41,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 35,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 36,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 37,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 38,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 39,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 40,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 41,
+          "sheep": 0,
+          "wolves": 32,
+          "population": 32,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 42,
+          "sheep": 0,
+          "wolves": 15,
+          "population": 15,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 43,
+          "sheep": 0,
+          "wolves": 15,
+          "population": 15,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 44,
+          "sheep": 0,
+          "wolves": 15,
+          "population": 15,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 45,
+          "sheep": 0,
+          "wolves": 15,
+          "population": 15,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 46,
+          "sheep": 0,
+          "wolves": 15,
+          "population": 15,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 47,
+          "sheep": 0,
+          "wolves": 12,
+          "population": 12,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 48,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 49,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 50,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 51,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 52,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 53,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 54,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 55,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 56,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 57,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 58,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 59,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 60,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 61,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 62,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 63,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 64,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 65,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 66,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 67,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 68,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 69,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 70,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 71,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 72,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 73,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 74,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 75,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 76,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 77,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 78,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 79,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 80,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 81,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 82,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 83,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 84,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 85,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 86,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 87,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 88,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 89,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 90,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 91,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 92,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 93,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 94,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 95,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 96,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 97,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 98,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 99,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 100,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 101,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 102,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 103,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 104,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 105,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 106,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 107,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 108,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 109,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 110,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 111,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 112,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 113,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 114,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 115,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 116,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 117,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 118,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 119,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 120,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 0,
+      "parameters": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "sheep": 100,
+        "wolves": 20,
+        "startingSheepEnergy": 10,
+        "startingWolfEnergy": 10,
+        "grassEnergy": 5,
+        "wolfHuntEnergy": 5,
+        "sheepReproductionThreshold": 20,
+        "wolfReproductionThreshold": 20,
+        "sheepReproductionCost": 10,
+        "wolfReproductionCost": 10
+      },
+      "snapshots": [
+        {
+          "tick": 1,
+          "sheep": 80,
+          "wolves": 20,
+          "population": 100,
+          "predatorRatio": 0.2
+        },
+        {
+          "tick": 2,
+          "sheep": 60,
+          "wolves": 40,
+          "population": 100,
+          "predatorRatio": 0.4
+        },
+        {
+          "tick": 3,
+          "sheep": 20,
+          "wolves": 60,
+          "population": 80,
+          "predatorRatio": 0.75
+        },
+        {
+          "tick": 4,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 5,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 6,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 7,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 8,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 9,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 10,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 11,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 12,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 13,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 14,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 15,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 16,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 17,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 18,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 19,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 20,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 21,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 22,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 23,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 24,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 25,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 26,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 27,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 28,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 29,
+          "sheep": 0,
+          "wolves": 86,
+          "population": 86,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 30,
+          "sheep": 0,
+          "wolves": 74,
+          "population": 74,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 31,
+          "sheep": 0,
+          "wolves": 74,
+          "population": 74,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 32,
+          "sheep": 0,
+          "wolves": 74,
+          "population": 74,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 33,
+          "sheep": 0,
+          "wolves": 68,
+          "population": 68,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 34,
+          "sheep": 0,
+          "wolves": 42,
+          "population": 42,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 35,
+          "sheep": 0,
+          "wolves": 34,
+          "population": 34,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 36,
+          "sheep": 0,
+          "wolves": 34,
+          "population": 34,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 37,
+          "sheep": 0,
+          "wolves": 34,
+          "population": 34,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 38,
+          "sheep": 0,
+          "wolves": 34,
+          "population": 34,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 39,
+          "sheep": 0,
+          "wolves": 34,
+          "population": 34,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 40,
+          "sheep": 0,
+          "wolves": 34,
+          "population": 34,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 41,
+          "sheep": 0,
+          "wolves": 34,
+          "population": 34,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 42,
+          "sheep": 0,
+          "wolves": 20,
+          "population": 20,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 43,
+          "sheep": 0,
+          "wolves": 20,
+          "population": 20,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 44,
+          "sheep": 0,
+          "wolves": 20,
+          "population": 20,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 45,
+          "sheep": 0,
+          "wolves": 20,
+          "population": 20,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 46,
+          "sheep": 0,
+          "wolves": 20,
+          "population": 20,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 47,
+          "sheep": 0,
+          "wolves": 14,
+          "population": 14,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 48,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 49,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 50,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 51,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 52,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 53,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 54,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 55,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 56,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 57,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 58,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 59,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 60,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 61,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 62,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 63,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 64,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 65,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 66,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 67,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 68,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 69,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 70,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 71,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 72,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 73,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 74,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 75,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 76,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 77,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 78,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 79,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 80,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 81,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 82,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 83,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 84,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 85,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 86,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 87,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 88,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 89,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 90,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 91,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 92,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 93,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 94,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 95,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 96,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 97,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 98,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 99,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 100,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 101,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 102,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 103,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 104,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 105,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 106,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 107,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 108,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 109,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 110,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 111,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 112,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 113,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 114,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 115,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 116,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 117,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 118,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 119,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 120,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 0,
+      "parameters": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "sheep": 100,
+        "wolves": 20,
+        "startingSheepEnergy": 10,
+        "startingWolfEnergy": 10,
+        "grassEnergy": 5,
+        "wolfHuntEnergy": 5,
+        "sheepReproductionThreshold": 20,
+        "wolfReproductionThreshold": 20,
+        "sheepReproductionCost": 10,
+        "wolfReproductionCost": 10
+      },
+      "snapshots": [
+        {
+          "tick": 1,
+          "sheep": 80,
+          "wolves": 20,
+          "population": 100,
+          "predatorRatio": 0.2
+        },
+        {
+          "tick": 2,
+          "sheep": 60,
+          "wolves": 40,
+          "population": 100,
+          "predatorRatio": 0.4
+        },
+        {
+          "tick": 3,
+          "sheep": 20,
+          "wolves": 60,
+          "population": 80,
+          "predatorRatio": 0.75
+        },
+        {
+          "tick": 4,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 5,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 6,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 7,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 8,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 9,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 10,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 11,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 12,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 13,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 14,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 15,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 16,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 17,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 18,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 19,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 20,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 21,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 22,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 23,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 24,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 25,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 26,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 27,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 28,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 29,
+          "sheep": 0,
+          "wolves": 87,
+          "population": 87,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 30,
+          "sheep": 0,
+          "wolves": 75,
+          "population": 75,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 31,
+          "sheep": 0,
+          "wolves": 75,
+          "population": 75,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 32,
+          "sheep": 0,
+          "wolves": 75,
+          "population": 75,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 33,
+          "sheep": 0,
+          "wolves": 68,
+          "population": 68,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 34,
+          "sheep": 0,
+          "wolves": 41,
+          "population": 41,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 35,
+          "sheep": 0,
+          "wolves": 33,
+          "population": 33,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 36,
+          "sheep": 0,
+          "wolves": 33,
+          "population": 33,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 37,
+          "sheep": 0,
+          "wolves": 33,
+          "population": 33,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 38,
+          "sheep": 0,
+          "wolves": 33,
+          "population": 33,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 39,
+          "sheep": 0,
+          "wolves": 33,
+          "population": 33,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 40,
+          "sheep": 0,
+          "wolves": 33,
+          "population": 33,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 41,
+          "sheep": 0,
+          "wolves": 33,
+          "population": 33,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 42,
+          "sheep": 0,
+          "wolves": 18,
+          "population": 18,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 43,
+          "sheep": 0,
+          "wolves": 18,
+          "population": 18,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 44,
+          "sheep": 0,
+          "wolves": 18,
+          "population": 18,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 45,
+          "sheep": 0,
+          "wolves": 18,
+          "population": 18,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 46,
+          "sheep": 0,
+          "wolves": 18,
+          "population": 18,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 47,
+          "sheep": 0,
+          "wolves": 13,
+          "population": 13,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 48,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 49,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 50,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 51,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 52,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 53,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 54,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 55,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 56,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 57,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 58,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 59,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 60,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 61,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 62,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 63,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 64,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 65,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 66,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 67,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 68,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 69,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 70,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 71,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 72,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 73,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 74,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 75,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 76,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 77,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 78,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 79,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 80,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 81,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 82,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 83,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 84,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 85,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 86,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 87,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 88,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 89,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 90,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 91,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 92,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 93,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 94,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 95,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 96,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 97,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 98,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 99,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 100,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 101,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 102,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 103,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 104,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 105,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 106,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 107,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 108,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 109,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 110,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 111,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 112,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 113,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 114,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 115,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 116,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 117,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 118,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 119,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 120,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 0,
+      "parameters": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "sheep": 100,
+        "wolves": 20,
+        "startingSheepEnergy": 10,
+        "startingWolfEnergy": 10,
+        "grassEnergy": 5,
+        "wolfHuntEnergy": 5,
+        "sheepReproductionThreshold": 20,
+        "wolfReproductionThreshold": 20,
+        "sheepReproductionCost": 10,
+        "wolfReproductionCost": 10
+      },
+      "snapshots": [
+        {
+          "tick": 1,
+          "sheep": 80,
+          "wolves": 20,
+          "population": 100,
+          "predatorRatio": 0.2
+        },
+        {
+          "tick": 2,
+          "sheep": 60,
+          "wolves": 40,
+          "population": 100,
+          "predatorRatio": 0.4
+        },
+        {
+          "tick": 3,
+          "sheep": 20,
+          "wolves": 60,
+          "population": 80,
+          "predatorRatio": 0.75
+        },
+        {
+          "tick": 4,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 5,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 6,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 7,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 8,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 9,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 10,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 11,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 12,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 13,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 14,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 15,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 16,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 17,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 18,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 19,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 20,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 21,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 22,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 23,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 24,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 25,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 26,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 27,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 28,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 29,
+          "sheep": 0,
+          "wolves": 85,
+          "population": 85,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 30,
+          "sheep": 0,
+          "wolves": 74,
+          "population": 74,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 31,
+          "sheep": 0,
+          "wolves": 74,
+          "population": 74,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 32,
+          "sheep": 0,
+          "wolves": 74,
+          "population": 74,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 33,
+          "sheep": 0,
+          "wolves": 69,
+          "population": 69,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 34,
+          "sheep": 0,
+          "wolves": 44,
+          "population": 44,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 35,
+          "sheep": 0,
+          "wolves": 35,
+          "population": 35,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 36,
+          "sheep": 0,
+          "wolves": 35,
+          "population": 35,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 37,
+          "sheep": 0,
+          "wolves": 35,
+          "population": 35,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 38,
+          "sheep": 0,
+          "wolves": 35,
+          "population": 35,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 39,
+          "sheep": 0,
+          "wolves": 35,
+          "population": 35,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 40,
+          "sheep": 0,
+          "wolves": 35,
+          "population": 35,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 41,
+          "sheep": 0,
+          "wolves": 35,
+          "population": 35,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 42,
+          "sheep": 0,
+          "wolves": 21,
+          "population": 21,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 43,
+          "sheep": 0,
+          "wolves": 21,
+          "population": 21,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 44,
+          "sheep": 0,
+          "wolves": 21,
+          "population": 21,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 45,
+          "sheep": 0,
+          "wolves": 21,
+          "population": 21,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 46,
+          "sheep": 0,
+          "wolves": 21,
+          "population": 21,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 47,
+          "sheep": 0,
+          "wolves": 15,
+          "population": 15,
+          "predatorRatio": 1.0
+        },
+        {
+          "tick": 48,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 49,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 50,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 51,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 52,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 53,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 54,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 55,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 56,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 57,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 58,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 59,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 60,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 61,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 62,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 63,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 64,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 65,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 66,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 67,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 68,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 69,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 70,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 71,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 72,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 73,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 74,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 75,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 76,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 77,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 78,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 79,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 80,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 81,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 82,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 83,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 84,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 85,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 86,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 87,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 88,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 89,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 90,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 91,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 92,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 93,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 94,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 95,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 96,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 97,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 98,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 99,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 100,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 101,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 102,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 103,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 104,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 105,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 106,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 107,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 108,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 109,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 110,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 111,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 112,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 113,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 114,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 115,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 116,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 117,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 118,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 119,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        },
+        {
+          "tick": 120,
+          "sheep": 0,
+          "wolves": 0,
+          "population": 0,
+          "predatorRatio": 0.0
+        }
+      ]
     }
   ]
 }

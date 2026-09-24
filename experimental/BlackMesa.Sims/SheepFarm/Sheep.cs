@@ -24,9 +24,9 @@ public sealed class Sheep(PredatorPreyModel model) : Agent<PredatorPreyModel>(mo
 
     public const int GrassEnergy = 4;
 
-    public const int ReproductionThreshold = 30;
+    public const int ReproductionThreshold = 10;
 
-    public const int ReproductionCost = 15;
+    public const int ReproductionCost = 10;
 
     public int Energy { get; private set; } = StartingEnergy;
 
