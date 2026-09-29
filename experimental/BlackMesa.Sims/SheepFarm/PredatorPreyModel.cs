@@ -4,9 +4,11 @@ namespace BlackMesa.Sims;
 
 public sealed class PredatorPreyModel : Model
 {
-    public PredatorPreyModel(int? seed = null)
-        // : base(seed)
+    public PredatorPreyParameters Parameters { get; }
+
+    public PredatorPreyModel(PredatorPreyParameters parameters)
     {
+        Parameters = parameters;
         SheepScheduler = new RandomScheduler<Sheep>(Random);
         WolfScheduler = new RandomScheduler<Wolf>(Random);
     }

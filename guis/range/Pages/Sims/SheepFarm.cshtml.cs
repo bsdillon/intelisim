@@ -5,6 +5,7 @@ using CodeMechanic.Shargs;
 using CodeMechanic.Types;
 using JsonFlatFileDataStore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Serilog.Core;
 using Westwind.AspNetCore.Markdown.Utilities;
 
@@ -12,31 +13,22 @@ namespace range;
 
 public class SheepFarm : RazorHatPage
 {
+    private const string ParametersCollection = "Parameters";
+
     private readonly DataStore _farmDb;
     public int Trials { get; set; } = 1;
     public int Seed { get; set; } = 42;
 
-    public PredatorPreyParameters FarmParams { get; set; } = new()
-    {
-        Sheep = 100,
-        Wolves = 20,
-        StartingSheepEnergy = 10,
-        StartingWolfEnergy = 10,
-        GrassEnergy = 5,
-        WolfHuntEnergy = 5,
-        SheepReproductionThreshold = 20,
-        WolfReproductionThreshold = 20,
-        SheepReproductionCost = 10,
-        WolfReproductionCost = 10
-    };
+    [BindNever]
+    public PredatorPreyParameters FarmParams { get; set; }
 
-    public PredatorPreySimulation FarmSim { get; set; }
+    public PredatorPreySimulation FarmSim { get; set; } = null!;
 
 
     public SheepFarm(Logger logger, ArgsMap arguments, DataStore farmDb) : base(logger, arguments)
     {
         _farmDb = farmDb;
-        FarmSim = new PredatorPreySimulation(FarmParams);
+        UseStoredParameters();
     }
 
     public IActionResult OnGet()
@@ -51,15 +43,42 @@ public class SheepFarm : RazorHatPage
     public IActionResult OnGetReset()
     {
         logger.Information($"{nameof(OnGetReset)}");
-        FarmSim = new PredatorPreySimulation(FarmParams);
+        UseStoredParameters();
         FarmSim.Dump("new");
         return Content("Resetti");
+    }
+
+    private void UseStoredParameters()
+    {
+        FarmParams = LoadParameters();
+        FarmSim = new PredatorPreySimulation(FarmParams);
+        logger.Information(
+            "Loaded SheepFarm parameters from {Collection}: sheep={Sheep}, wolves={Wolves}, grass={Grass}, hunt={Hunt}",
+            ParametersCollection,
+            FarmParams.Sheep,
+            FarmParams.Wolves,
+            FarmParams.GrassEnergy,
+            FarmParams.WolfHuntEnergy);
+    }
+
+    private PredatorPreyParameters LoadParameters()
+    {
+        var parameters = _farmDb.GetCollection<SheepFarmParameterSet>(ParametersCollection);
+
+        if (parameters.Count > 0)
+            return parameters.AsQueryable().First().ToParameters();
+
+        var seeded = PredatorPreyParameters.SheepFarmDefaults();
+        parameters.InsertOne(SheepFarmParameterSet.From(seeded));
+        return seeded;
     }
 
     public async Task<IActionResult> OnGetPlay()
     {
         try
         {
+            UseStoredParameters();
+
             var sims_collection = _farmDb.GetCollection<SimulationRun>("simulations");
 
             // var simulations = Enumerable.Range(0, Trials)

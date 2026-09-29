@@ -52,6 +52,23 @@ public readonly record struct PredatorPreyParameters
     // }
 
 
+    // Stable SheepFarm seed. The constructor defaults (grass 50 against a threshold of 45) still outrun predation.
+    public static PredatorPreyParameters SheepFarmDefaults()
+    {
+        return new PredatorPreyParameters(
+            Id: Guid.NewGuid(),
+            Sheep: 100,
+            Wolves: 20,
+            StartingSheepEnergy: 10,
+            StartingWolfEnergy: 10,
+            GrassEnergy: 5,
+            WolfHuntEnergy: 5,
+            SheepReproductionThreshold: 20,
+            WolfReproductionThreshold: 20,
+            SheepReproductionCost: 10,
+            WolfReproductionCost: 10);
+    }
+
     // Optional: Constructor that forces named arguments (prevents ordering mistakes)
     public static PredatorPreyParameters Create(
         Guid Id = default,
