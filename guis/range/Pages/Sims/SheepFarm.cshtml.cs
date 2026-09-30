@@ -18,12 +18,14 @@ public class SheepFarm : RazorHatPage
     private readonly DataStore _farmDb;
     public int Trials { get; set; } = 1;
     public int Seed { get; set; } = 42;
+    public int MaxTicks { get; set; } = 120;
+
+    private static CancellationTokenSource _simulationCts = new();
 
     [BindNever]
     public PredatorPreyParameters FarmParams { get; set; }
 
     public PredatorPreySimulation FarmSim { get; set; } = null!;
-
 
     public SheepFarm(Logger logger, ArgsMap arguments, DataStore farmDb) : base(logger, arguments)
     {
@@ -80,30 +82,31 @@ public class SheepFarm : RazorHatPage
             UseStoredParameters();
 
             var sims_collection = _farmDb.GetCollection<SimulationRun>("simulations");
+            var cts = new CancellationTokenSource();
 
-            // var simulations = Enumerable.Range(0, Trials)
-            //     .Aggregate(new Dictionary<int, PredatorPreySimulation>(), (map, i) =>
-            //     {
-            //         map.TryAdd(i, new PredatorPreySimulation(FarmParams, i));
-            //         return map;
-            //     });
+            var old = Interlocked.Exchange(ref _simulationCts, cts);
+            old.Cancel();
+            old.Dispose();
+
+            var sims_collection = _farmDb.GetCollection<SimulationRun>("simulations");
 
             var simulations = Enumerable.Range(0, Trials)
                 .Select(seed => new PredatorPreySimulation(FarmParams))
                 .ToArray();
 
-
-            var options = new ParallelOptions()
+            var options = new ParallelOptions
             {
-                MaxDegreeOfParallelism = 20
+                MaxDegreeOfParallelism = 20,
+                CancellationToken = cts.Token
             };
 
-            // var results = new ConcurrentBag<SimulationResult>();
             var results = new ConcurrentBag<SimulationRun>();
 
             await Parallel.ForEachAsync(simulations, options, async (simulation, ct) =>
             {
-                simulation.Run(Seed, ticks: 120);
+                ct.ThrowIfCancellationRequested();
+
+                simulation.Run(Seed, ticks: MaxTicks);
 
                 var run = new SimulationRun(
                     simulation.Seed,
@@ -112,53 +115,16 @@ public class SheepFarm : RazorHatPage
 
                 results.Add(run);
 
-                logger.Information(
-                    "Seed={Seed}, Snapshots={Snapshots}",
-                    run.Seed,
-                    run.Snapshots.Count);
-
-                foreach (var simulationSnapshot in run.Snapshots)
-                {
-                    logger.Information($"Ticks:      {simulationSnapshot.Tick}");
-                    logger.Information($"Sheep:      {simulationSnapshot.Sheep}");
-                    logger.Information($"Wolves:     {simulationSnapshot.Wolves}");
-                    logger.Information($"Population: {simulationSnapshot.Population}");
-                    logger.Information($"Predator:   {simulationSnapshot.PredatorRatio:P2}");
-                }
-
                 await Task.CompletedTask;
             });
 
-            int total = results.Count;
-            logger.Information($"Total sims completed: {total}");
-            await sims_collection.InsertManyAsync(results);
+            logger.Information("Total sims completed: {Total}", results.Count);
 
-            // await Parallel.ForEachAsync(simulations, options, async (kvp, ct) =>
-            // {
-            //     int seed = kvp.Key;
-            //     var simulation = kvp.Value;
-            //
-            //     simulation.Run(seed);
-            //
-            //     logger.Information($"Ticks:      {simulation.Model.Tick}");
-            //     logger.Information($"Sheep:      {simulation.Model.PreyCount}");
-            //     logger.Information($"Wolves:     {simulation.Model.PredatorCount}");
-            //     logger.Information($"Population: {simulation.Model.Population}");
-            //     logger.Information($"Predator:   {simulation.Model.PredatorRatio:P2}");
-            //
-            //     results.Add(new SimulationResult(
-            //         seed,
-            //         simulation.Model.Tick,
-            //         simulation.Model.PreyCount,
-            //         simulation.Model.PredatorCount,
-            //         simulation.Model.Population,
-            //         simulation.Model.PredatorRatio
-            //     ));
-            //
-            //     await Task.CompletedTask;
-            // });
-            //
-            // await sims_collection.InsertManyAsync(results);
+            await sims_collection.InsertManyAsync(results);
+        }
+        catch (OperationCanceledException)
+        {
+            logger.Information("Simulation cancelled.");
         }
         catch (Exception ex)
         {
@@ -169,8 +135,78 @@ public class SheepFarm : RazorHatPage
         return Partial("_SimulationComplete", FarmSim);
     }
 
+    // public async Task<IActionResult> OnGetPlay()
+    // {
+    //     try
+    //     {
+    //         _simulationCts.Dispose();
+    //         _simulationCts = new CancellationTokenSource();
+    //
+    //         var sims_collection = _farmDb.GetCollection<SimulationRun>("simulations");
+    //
+    //         var simulations = Enumerable.Range(0, Trials)
+    //             .Select(seed => new PredatorPreySimulation(FarmParams))
+    //             .ToArray();
+    //
+    //         var options = new ParallelOptions()
+    //         {
+    //             MaxDegreeOfParallelism = 20,
+    //             CancellationToken = _simulationCts.Token
+    //         };
+    //
+    //         var results = new ConcurrentBag<SimulationRun>();
+    //
+    //         await Parallel.ForEachAsync(simulations, options, async (simulation, ct) =>
+    //         {
+    //             ct.ThrowIfCancellationRequested();
+    //             simulation.Run(Seed, ticks: MaxTicks);
+    //
+    //             var run = new SimulationRun(
+    //                 simulation.Seed,
+    //                 simulation.Parameters,
+    //                 simulation.Snapshots);
+    //
+    //             results.Add(run);
+    //
+    //             logger.Information(
+    //                 "Seed={Seed}, Snapshots={Snapshots}",
+    //                 run.Seed,
+    //                 run.Snapshots.Count);
+    //
+    //             foreach (var simulationSnapshot in run.Snapshots)
+    //             {
+    //                 logger.Information($"Ticks:      {simulationSnapshot.Tick}");
+    //                 logger.Information($"Sheep:      {simulationSnapshot.Sheep}");
+    //                 logger.Information($"Wolves:     {simulationSnapshot.Wolves}");
+    //                 logger.Information($"Population: {simulationSnapshot.Population}");
+    //                 logger.Information($"Predator:   {simulationSnapshot.PredatorRatio:P2}");
+    //             }
+    //
+    //             await Task.CompletedTask;
+    //         });
+    //
+    //         int total = results.Count;
+    //         logger.Information($"Total sims completed: {total}");
+    //         await sims_collection.InsertManyAsync(results);
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         logger.Information(ex.ToString());
+    //         if (debug) throw;
+    //     }
+    //
+    //     return Partial("_SimulationComplete", FarmSim);
+    // }
+
+
     public IActionResult OnGetStep()
     {
         return Content("Stepped!");
+    }
+
+    public IActionResult OnGetStop()
+    {
+        _simulationCts.Cancel();
+        return Content("Stopped!");
     }
 }
