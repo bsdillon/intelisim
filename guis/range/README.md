@@ -78,9 +78,11 @@ depending on payoffs.
 * [NeuroObstacle Course](https://github.com/argonautcode/neuro-obstacle-course)
 
 
-Look into:
-- P(t) = I - E + (B-D)*P(t-1)
-- Three bodies problem
-- sensitivity analysis
-- slack variables
+### 9/24/26 chat
 
+1. Look into:
+   - P(t) = I - E + (B-D)*P(t-1)
+   - Three bodies problem
+   - sensitivity analysis
+   - slack variables
+   

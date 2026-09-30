@@ -46,8 +46,8 @@ public sealed class Wolf(PredatorPreyModel model)
     {
         var prey = Model.Sheep.TakeFirstRandom(Model.Random);
 
-        Console.WriteLine(
-            $"Wolf {GetHashCode()} hunted sheep {prey?.GetHashCode()}");
+        // Console.WriteLine(
+        //     $"Wolf {GetHashCode()} hunted sheep {prey?.GetHashCode()}");
 
         if (prey is null)
             return;
