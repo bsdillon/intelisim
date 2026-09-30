@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using BlackMesa.Sims;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Shargs;
@@ -31,12 +32,13 @@ public class SheepFarm : RazorHatPage
         UseStoredParameters();
     }
 
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGet()
     {
         if (debug) FarmSim.Dump(printFn: printFn);
         if (debug) FarmParams.Dump(printFn: printFn);
 
         // farm_db = new JsonFlatFileDataStore.DataStore("farm_db.json");
+        await RemoveUnasignedSimulations();
         return Page();
     }
 
@@ -63,13 +65,18 @@ public class SheepFarm : RazorHatPage
 
     private PredatorPreyParameters LoadParameters()
     {
-        var parameters = _farmDb.GetCollection<SheepFarmParameterSet>(ParametersCollectionName);
+        var parameters_doc = _farmDb.GetCollection<SheepFarmParameterSet>(ParametersCollectionName);
 
-        if (parameters.Count > 0)
-            return parameters.AsQueryable().First().ToParameters();
+        if (parameters_doc.Count > 0)
+            return parameters_doc.AsQueryable().First().ToParameters();
+
+        var unassignedParameters = FindAnyUnassignedParameters();
+
+        if (unassignedParameters.Length > 0)
+            Task.Run(async () => { await RemoveUnasignedParameters(); });
 
         var seeded = PredatorPreyParameters.SheepFarmDefaults();
-        parameters.InsertOne(SheepFarmParameterSet.From(seeded));
+        parameters_doc.InsertOne(SheepFarmParameterSet.From(seeded));
         return seeded;
     }
 
@@ -117,6 +124,7 @@ public class SheepFarm : RazorHatPage
 
             logger.Information("Total sims completed: {Total}", results.Count);
 
+            await RemoveUnasignedSimulations();
             await sims_collection.InsertManyAsync(results);
         }
         catch (OperationCanceledException)
@@ -141,5 +149,64 @@ public class SheepFarm : RazorHatPage
     {
         _simulationCts.Cancel();
         return Content("Stopped!");
+    }
+
+    private async Task<bool> RemoveUnasignedParameters()
+    {
+        var unassigned_parameters = FindAnyUnassignedParameters();
+
+        unassigned_parameters.Dump(nameof(unassigned_parameters), printFn: logger.Information);
+
+        if (unassigned_parameters.Length == 0)
+            return false;
+
+        var parameters_doc = _farmDb.GetCollection<SheepFarmParameterSet>(ParametersCollectionName);
+
+        // DeleteOneAsync(object) matches the document id, not the entity.
+        return await parameters_doc.DeleteManyAsync(p => p.Id.ToGuid() == Guid.Empty);
+    }
+
+    private ImmutableArray<SheepFarmParameterSet> FindAnyUnassignedParameters()
+    {
+        return _farmDb.GetCollection<SheepFarmParameterSet>(ParametersCollectionName)
+            .AsQueryable()
+            .Where(p => p.Id.ToGuid() == Guid.Empty)
+            .ToImmutableArray();
+    }
+
+    private async Task<bool> RemoveUnasignedSimulations()
+    {
+        var unassigned_simulations = FindAnyUnassignedSimulations();
+
+        unassigned_simulations
+            .Select(run => run.Parameters.Id)
+            .Dump(nameof(unassigned_simulations), printFn: logger.Information);
+
+        if (unassigned_simulations.Length == 0)
+            return false;
+
+        var simulations_doc = _farmDb.GetCollection<SimulationRun>(SimCollectionName);
+
+        // Simulation runs have no document id. The empty guid is parameters.id.
+        return await simulations_doc.DeleteManyAsync(run => run.Parameters.Id == Guid.Empty);
+    }
+
+    private ImmutableArray<SimulationRun> FindAnyUnassignedSimulations()
+    {
+        return _farmDb.GetCollection<SimulationRun>(SimCollectionName)
+            .AsQueryable()
+            .Where(run => run.Parameters.Id == Guid.Empty)
+            .ToImmutableArray();
+    }
+}
+
+// Todo: add these methods to CodeMechanic.Types library
+public static class TypeExtensions
+{
+    public static Guid ToGuid(this string text, Guid? fallback = null)
+    {
+        if (!fallback.HasValue) fallback = Guid.Empty;
+        var ret = Guid.TryParse(text, out var id) ? id : fallback.Value;
+        return ret;
     }
 }
