@@ -50,35 +50,6 @@ public class SheepFarm : RazorHatPage
         return Content("Resetti");
     }
 
-    private void UseStoredParameters()
-    {
-        FarmParams = LoadParameters();
-        FarmSim = new PredatorPreySimulation(FarmParams);
-        logger.Information(
-            "Loaded SheepFarm parameters from {Collection}: sheep={Sheep}, wolves={Wolves}, grass={Grass}, hunt={Hunt}",
-            ParametersCollectionName,
-            FarmParams.Sheep,
-            FarmParams.Wolves,
-            FarmParams.GrassEnergy,
-            FarmParams.WolfHuntEnergy);
-    }
-
-    private PredatorPreyParameters LoadParameters()
-    {
-        var parameters_doc = _farmDb.GetCollection<SheepFarmParameterSet>(ParametersCollectionName);
-
-        if (parameters_doc.Count > 0)
-            return parameters_doc.AsQueryable().First().ToParameters();
-
-        var unassignedParameters = FindAnyUnassignedParameters();
-
-        if (unassignedParameters.Length > 0)
-            Task.Run(async () => { await RemoveUnasignedParameters(); });
-
-        var seeded = PredatorPreyParameters.SheepFarmDefaults();
-        parameters_doc.InsertOne(SheepFarmParameterSet.From(seeded));
-        return seeded;
-    }
 
     public async Task<IActionResult> OnGetPlay()
     {
@@ -197,6 +168,37 @@ public class SheepFarm : RazorHatPage
             .AsQueryable()
             .Where(run => run.Parameters.Id == Guid.Empty)
             .ToImmutableArray();
+    }
+
+
+    private void UseStoredParameters()
+    {
+        FarmParams = LoadParameters();
+        FarmSim = new PredatorPreySimulation(FarmParams);
+        logger.Information(
+            "Loaded SheepFarm parameters from {Collection}: sheep={Sheep}, wolves={Wolves}, grass={Grass}, hunt={Hunt}",
+            ParametersCollectionName,
+            FarmParams.Sheep,
+            FarmParams.Wolves,
+            FarmParams.GrassEnergy,
+            FarmParams.WolfHuntEnergy);
+    }
+
+    private PredatorPreyParameters LoadParameters()
+    {
+        var parameters_doc = _farmDb.GetCollection<SheepFarmParameterSet>(ParametersCollectionName);
+
+        if (parameters_doc.Count > 0)
+            return parameters_doc.AsQueryable().First().ToParameters();
+
+        var unassignedParameters = FindAnyUnassignedParameters();
+
+        if (unassignedParameters.Length > 0)
+            Task.Run(async () => { await RemoveUnasignedParameters(); });
+
+        var seeded = PredatorPreyParameters.SheepFarmDefaults();
+        parameters_doc.InsertOne(SheepFarmParameterSet.From(seeded));
+        return seeded;
     }
 }
 
