@@ -6,21 +6,13 @@ namespace BlackMesa.Sims;
 public sealed class Wolf(PredatorPreyModel model)
     : Agent<PredatorPreyModel>(model)
 {
-    public const int StartingEnergy = 30;
-
-    public const int HuntEnergy = 15;
-
-    public const int ReproductionThreshold = 45;
-
-    public const int ReproductionCost = 20;
-
-    public int Energy { get; private set; } = StartingEnergy;
+    public int Energy { get; private set; } = model.Parameters.StartingWolfEnergy;
 
     public bool IsHungry =>
-        Energy < 15;
+        Energy < Model.Parameters.WolfReproductionThreshold;
 
     public bool CanReproduce =>
-        Energy >= ReproductionThreshold;
+        Energy >= Model.Parameters.WolfReproductionThreshold;
 
     public bool IsDead => Energy <= 0;
 
@@ -54,12 +46,12 @@ public sealed class Wolf(PredatorPreyModel model)
 
         prey.Die();
 
-        Energy += HuntEnergy;
+        Energy += Model.Parameters.WolfHuntEnergy;
     }
 
     private void Reproduce()
     {
-        Energy -= ReproductionCost;
+        Energy -= Model.Parameters.WolfReproductionCost;
 
         Model.Add(new Wolf(Model));
     }

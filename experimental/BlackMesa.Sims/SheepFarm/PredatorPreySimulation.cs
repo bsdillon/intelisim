@@ -5,7 +5,6 @@ namespace BlackMesa.Sims;
 public sealed class PredatorPreySimulation : Simulation
 {
     public PredatorPreyModel Model { get; }
-    public int Seed { get; init; }
 
     public List<SimulationSnapshot> Snapshots { get; } = [];
     public PredatorPreyParameters Parameters { get; }
@@ -13,7 +12,7 @@ public sealed class PredatorPreySimulation : Simulation
     public PredatorPreySimulation(PredatorPreyParameters parameters)
     {
         Parameters = parameters;
-        Model = new PredatorPreyModel();
+        Model = new PredatorPreyModel(parameters);
     }
     
     // public PredatorPreySimulation(

@@ -11,7 +11,7 @@ public sealed class Sheep(PredatorPreyModel model) : Agent<PredatorPreyModel>(mo
     //     Model.Sheep.Remove(this);
     // }
 
-    public bool IsHealthy => Energy >= 50;
+    public bool IsHealthy => Energy >= Model.Parameters.SheepReproductionThreshold;
     public bool IsDead => Energy <= 0;
 
     public ASpec<Sheep>.And IsVulnerable => SheepSpecs.Hungry &
@@ -20,21 +20,13 @@ public sealed class Sheep(PredatorPreyModel model) : Agent<PredatorPreyModel>(mo
 
     //
 
-    public const int StartingEnergy = 20;
-
-    public const int GrassEnergy = 4;
-
-    public const int ReproductionThreshold = 10;
-
-    public const int ReproductionCost = 10;
-
-    public int Energy { get; private set; } = StartingEnergy;
+    public int Energy { get; private set; } = model.Parameters.StartingSheepEnergy;
 
     public bool IsHungry =>
-        Energy < 10;
+        Energy < Model.Parameters.SheepReproductionThreshold;
 
     public bool CanReproduce =>
-        Energy >= ReproductionThreshold;
+        Energy >= Model.Parameters.SheepReproductionThreshold;
 
     public override void Step()
     {
@@ -56,12 +48,12 @@ public sealed class Sheep(PredatorPreyModel model) : Agent<PredatorPreyModel>(mo
 
     private void Eat()
     {
-        Energy += GrassEnergy;
+        Energy += Model.Parameters.GrassEnergy;
     }
 
     private void Reproduce()
     {
-        Energy -= ReproductionCost;
+        Energy -= Model.Parameters.SheepReproductionCost;
 
         Model.Add(new Sheep(Model));
     }
