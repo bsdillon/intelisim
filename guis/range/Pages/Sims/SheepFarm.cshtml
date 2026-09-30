@@ -83,7 +83,6 @@
          :class="wireframe && 'wf-on'"
          class="grid grid-cols-4 grid-rows-4 sm:auto-rows-[180px] gap-4 grid-flow-dense">
 
-
         <div id="farm_controls" class="col-span-2 row-span-2">
 
             <div :class="views.controls.classname">
@@ -92,7 +91,7 @@
                         <div class="flex justify-between">
                             <h2 class="text-3xl font-bold">Controls</h2>
                         </div>
-                        <div class="mt-6 gap-10 flex flex-row"
+                        <div class="mt-6 gap-10 grid grid-cols-3 gap-1"
                              hx-page="/Sims/SheepFarm"
                              hx-target="#simulation-results"
                              hx-swap="innerHTML"
