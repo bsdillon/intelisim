@@ -22,8 +22,7 @@ public class SheepFarm : RazorHatPage
 
     private static CancellationTokenSource _simulationCts = new();
 
-    [BindNever]
-    public PredatorPreyParameters FarmParams { get; set; }
+    [BindNever] public PredatorPreyParameters FarmParams { get; set; }
 
     public PredatorPreySimulation FarmSim { get; set; } = null!;
 
@@ -88,7 +87,6 @@ public class SheepFarm : RazorHatPage
             old.Cancel();
             old.Dispose();
 
-            var sims_collection = _farmDb.GetCollection<SimulationRun>("simulations");
 
             var simulations = Enumerable.Range(0, Trials)
                 .Select(seed => new PredatorPreySimulation(FarmParams))
