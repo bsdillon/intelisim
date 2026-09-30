@@ -2,18 +2,17 @@ using System.Collections.Concurrent;
 using BlackMesa.Sims;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Shargs;
-using CodeMechanic.Types;
 using JsonFlatFileDataStore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Serilog.Core;
-using Westwind.AspNetCore.Markdown.Utilities;
 
 namespace range;
 
 public class SheepFarm : RazorHatPage
 {
-    private const string ParametersCollection = "Parameters";
+    private const string ParametersCollectionName = "Parameters";
+    private const string SimCollectionName = "simulations";
 
     private readonly DataStore _farmDb;
     public int Trials { get; set; } = 1;
@@ -55,7 +54,7 @@ public class SheepFarm : RazorHatPage
         FarmSim = new PredatorPreySimulation(FarmParams);
         logger.Information(
             "Loaded SheepFarm parameters from {Collection}: sheep={Sheep}, wolves={Wolves}, grass={Grass}, hunt={Hunt}",
-            ParametersCollection,
+            ParametersCollectionName,
             FarmParams.Sheep,
             FarmParams.Wolves,
             FarmParams.GrassEnergy,
@@ -64,7 +63,7 @@ public class SheepFarm : RazorHatPage
 
     private PredatorPreyParameters LoadParameters()
     {
-        var parameters = _farmDb.GetCollection<SheepFarmParameterSet>(ParametersCollection);
+        var parameters = _farmDb.GetCollection<SheepFarmParameterSet>(ParametersCollectionName);
 
         if (parameters.Count > 0)
             return parameters.AsQueryable().First().ToParameters();
@@ -80,7 +79,7 @@ public class SheepFarm : RazorHatPage
         {
             UseStoredParameters();
 
-            var sims_collection = _farmDb.GetCollection<SimulationRun>("simulations");
+            var sims_collection = _farmDb.GetCollection<SimulationRun>(SimCollectionName);
             var cts = new CancellationTokenSource();
 
             var old = Interlocked.Exchange(ref _simulationCts, cts);
@@ -132,70 +131,6 @@ public class SheepFarm : RazorHatPage
 
         return Partial("_SimulationComplete", FarmSim);
     }
-
-    // public async Task<IActionResult> OnGetPlay()
-    // {
-    //     try
-    //     {
-    //         _simulationCts.Dispose();
-    //         _simulationCts = new CancellationTokenSource();
-    //
-    //         var sims_collection = _farmDb.GetCollection<SimulationRun>("simulations");
-    //
-    //         var simulations = Enumerable.Range(0, Trials)
-    //             .Select(seed => new PredatorPreySimulation(FarmParams))
-    //             .ToArray();
-    //
-    //         var options = new ParallelOptions()
-    //         {
-    //             MaxDegreeOfParallelism = 20,
-    //             CancellationToken = _simulationCts.Token
-    //         };
-    //
-    //         var results = new ConcurrentBag<SimulationRun>();
-    //
-    //         await Parallel.ForEachAsync(simulations, options, async (simulation, ct) =>
-    //         {
-    //             ct.ThrowIfCancellationRequested();
-    //             simulation.Run(Seed, ticks: MaxTicks);
-    //
-    //             var run = new SimulationRun(
-    //                 simulation.Seed,
-    //                 simulation.Parameters,
-    //                 simulation.Snapshots);
-    //
-    //             results.Add(run);
-    //
-    //             logger.Information(
-    //                 "Seed={Seed}, Snapshots={Snapshots}",
-    //                 run.Seed,
-    //                 run.Snapshots.Count);
-    //
-    //             foreach (var simulationSnapshot in run.Snapshots)
-    //             {
-    //                 logger.Information($"Ticks:      {simulationSnapshot.Tick}");
-    //                 logger.Information($"Sheep:      {simulationSnapshot.Sheep}");
-    //                 logger.Information($"Wolves:     {simulationSnapshot.Wolves}");
-    //                 logger.Information($"Population: {simulationSnapshot.Population}");
-    //                 logger.Information($"Predator:   {simulationSnapshot.PredatorRatio:P2}");
-    //             }
-    //
-    //             await Task.CompletedTask;
-    //         });
-    //
-    //         int total = results.Count;
-    //         logger.Information($"Total sims completed: {total}");
-    //         await sims_collection.InsertManyAsync(results);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         logger.Information(ex.ToString());
-    //         if (debug) throw;
-    //     }
-    //
-    //     return Partial("_SimulationComplete", FarmSim);
-    // }
-
 
     public IActionResult OnGetStep()
     {
