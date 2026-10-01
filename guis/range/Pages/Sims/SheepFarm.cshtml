@@ -185,11 +185,13 @@
     <div id="farm-live" class="w-full max-w-5xl self-stretch mt-6">
         <div id="status">Idle</div>
         <partial name="/Pages/Sims/Farm/_FarmTick.cshtml" model="Model.ShownSnapshot"/>
+        <div id="simulation-histogram" class="w-full" data-samples="[]"></div>
     </div>
 
 </div>
 
 <script src="/vendor/d3/d3.v7.min.js"></script>
+<script src="/js/farm-charts.js"></script>
 
 <script>
     function setup_farm() {
