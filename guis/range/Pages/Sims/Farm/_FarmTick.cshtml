@@ -1,0 +1,29 @@
+@model BlackMesa.Sims.SimulationSnapshot
+@{
+    Layout = null;
+}
+
+<div id="farm-stats" class="stats shadow my-4" hx-swap-oob="true">
+    <div class="stat">
+        <div class="stat-title">Ticks</div>
+        <div class="stat-value">@Model.Tick</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-title">Sheep</div>
+        <div class="stat-value">@Model.Sheep</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-figure text-secondary">
+            🐺
+        </div>
+        <div class="stat-title">Wolves</div>
+        <div class="stat-value">@Model.Wolves</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-title">Population</div>
+        <div class="stat-value">@Model.Population</div>
+    </div>
+</div>

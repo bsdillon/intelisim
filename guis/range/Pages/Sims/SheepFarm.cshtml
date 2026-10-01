@@ -9,7 +9,7 @@
     int trials = @Model.Trials;
 }
 
-<div x-data="setup_farm" class="flex flex-col items-center m-4">
+<div x-data="setup_farm" class="flex flex-col items-center m-4" hx-ext="ws" ws-connect="/Sims/SheepFarm?handler=Ws">
     <div
         class="hero"
     >
@@ -102,22 +102,19 @@
                                 class="btn btn-primary">Reset
                             </button>
 
-                            <button
-                                class="btn btn-primary"
-                                hx-get
-                                hx-trigger="click"
-                                hx-page-handler="Play"
-                            >
-                                ▶ Play
-                            </button>
+                            <form ws-send>
+                                <input type="hidden" name="cmd" value="start"/>
+                                <button type="submit" class="btn btn-primary w-full">▶ Play</button>
+                            </form>
 
                             <button hx-get
                                     hx-page-handler="Step" class="btn btn-primary">Step
                             </button>
 
-                            <button hx-get
-                                    hx-page-handler="Stop" class="btn btn-primary">Stop
-                            </button>
+                            <form ws-send>
+                                <input type="hidden" name="cmd" value="stop"/>
+                                <button type="submit" class="btn btn-primary w-full">Stop</button>
+                            </form>
 
 
                         </div>
@@ -185,6 +182,10 @@
 
     </div>
 
+    <div id="farm-live" class="w-full max-w-5xl self-stretch mt-6">
+        <div id="status">Idle</div>
+        <partial name="/Pages/Sims/Farm/_FarmTick.cshtml" model="Model.ShownSnapshot"/>
+    </div>
 
 </div>
 

@@ -1,5 +1,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
+using System.Net.WebSockets;
+using System.Text;
+using System.Text.Json;
 using BlackMesa.Sims;
 using CodeMechanic.Diagnostics;
 using CodeMechanic.Shargs;
@@ -15,7 +18,11 @@ public class SheepFarm : RazorHatPage
     private const string ParametersCollectionName = "Parameters";
     private const string SimCollectionName = "simulations";
 
+    private static readonly TimeSpan TickDelay = TimeSpan.FromMilliseconds(80);
+
     private readonly DataStore _farmDb;
+    private readonly IRazorPartialRenderer _razor;
+    private readonly SemaphoreSlim _sendLock = new(1, 1);
     public int Trials { get; set; } = 1;
     public int Seed { get; set; } = 42;
     public int MaxTicks { get; set; } = 120;
@@ -26,9 +33,12 @@ public class SheepFarm : RazorHatPage
 
     public PredatorPreySimulation FarmSim { get; set; } = null!;
 
-    public SheepFarm(Logger logger, ArgsMap arguments, DataStore farmDb) : base(logger, arguments)
+    public SimulationSnapshot ShownSnapshot { get; private set; } = new(0, 0, 0, 0, 0);
+
+    public SheepFarm(Logger logger, ArgsMap arguments, DataStore farmDb, IRazorPartialRenderer razor) : base(logger, arguments)
     {
         _farmDb = farmDb;
+        _razor = razor;
         UseStoredParameters();
     }
 
@@ -55,48 +65,12 @@ public class SheepFarm : RazorHatPage
     {
         try
         {
-            UseStoredParameters();
-
-            var sims_collection = _farmDb.GetCollection<SimulationRun>(SimCollectionName);
             var cts = new CancellationTokenSource();
-
             var old = Interlocked.Exchange(ref _simulationCts, cts);
             old.Cancel();
             old.Dispose();
 
-
-            var simulations = Enumerable.Range(0, Trials)
-                .Select(seed => new PredatorPreySimulation(FarmParams))
-                .ToArray();
-
-            var options = new ParallelOptions
-            {
-                MaxDegreeOfParallelism = 20,
-                CancellationToken = cts.Token
-            };
-
-            var results = new ConcurrentBag<SimulationRun>();
-
-            await Parallel.ForEachAsync(simulations, options, async (simulation, ct) =>
-            {
-                ct.ThrowIfCancellationRequested();
-
-                simulation.Run(Seed, ticks: MaxTicks);
-
-                var run = new SimulationRun(
-                    simulation.Seed,
-                    simulation.Parameters,
-                    simulation.Snapshots);
-
-                results.Add(run);
-
-                await Task.CompletedTask;
-            });
-
-            logger.Information("Total sims completed: {Total}", results.Count);
-
-            await RemoveUnasignedSimulations();
-            await sims_collection.InsertManyAsync(results);
+            await RunAndStoreAsync(cts.Token);
         }
         catch (OperationCanceledException)
         {
@@ -109,6 +83,189 @@ public class SheepFarm : RazorHatPage
         }
 
         return Partial("_SimulationComplete", FarmSim);
+    }
+
+    public async Task<IActionResult> OnGetWs()
+    {
+        logger.Information($"{nameof(OnGetWs)}");
+        var is_not_a_ws_request = !HttpContext.WebSockets.IsWebSocketRequest;
+        logger.Information($"{nameof(is_not_a_ws_request)} :>> {is_not_a_ws_request}");
+
+        if (is_not_a_ws_request)
+            return StatusCode(StatusCodes.Status400BadRequest);
+
+        using var socket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+        logger.Information("Websocket established.");
+
+        try
+        {
+            await RunSocketAsync(socket, HttpContext.RequestAborted);
+        }
+        catch (WebSocketException exception)
+        {
+            logger.Information($"{nameof(exception)} :>> {exception}");
+        }
+        catch (OperationCanceledException exception)
+        {
+            logger.Information($"{nameof(exception)} :>> {exception}");
+        }
+
+        logger.Information("WS call completed.");
+        return new EmptyResult();
+    }
+
+    private async Task RunSocketAsync(WebSocket socket, CancellationToken httpCt)
+    {
+        var buffer = new byte[8 * 1024];
+
+        while (socket.State == WebSocketState.Open && !httpCt.IsCancellationRequested)
+        {
+            var result = await socket.ReceiveAsync(buffer, httpCt);
+            if (result.MessageType == WebSocketMessageType.Close) break;
+
+            var cmd = ReadCmd(buffer, result.Count);
+            logger.Information($"{nameof(cmd)} :>> {cmd}");
+
+            switch (cmd)
+            {
+                case "play":
+                case "start":
+                    var playCts = CancellationTokenSource.CreateLinkedTokenSource(httpCt);
+                    var old = Interlocked.Exchange(ref _simulationCts, playCts);
+                    old.Cancel();
+                    old.Dispose();
+                    _ = StreamAsync(socket, playCts.Token);
+                    break;
+                case "stop":
+                    _simulationCts.Cancel();
+                    await SendPartial(socket, "_Status", "Stopped");
+                    break;
+            }
+        }
+    }
+
+    private async Task StreamAsync(WebSocket socket, CancellationToken ct)
+    {
+        try
+        {
+            await SendPartial(socket, "_Status", "Running…");
+            var snapshots = await RunAndStoreAsync(ct);
+            logger.Information("Streaming {Ticks} ticks", snapshots.Count);
+
+            for (var i = 0; i < snapshots.Count; i++)
+            {
+                ct.ThrowIfCancellationRequested();
+                await SendHtml(socket, await RenderTickMessage(snapshots[i]));
+                if (i < snapshots.Count - 1)
+                    await Task.Delay(TickDelay, ct);
+            }
+
+            if (snapshots.Count == 0)
+            {
+                await SendPartial(socket, "_Status", "No ticks.");
+                return;
+            }
+
+            var last = snapshots[^1];
+            await SendPartial(socket, "_Status",
+                $"Done at tick {last.Tick}: {last.Sheep} sheep, {last.Wolves} wolves, population {last.Population}");
+        }
+        catch (OperationCanceledException)
+        {
+            logger.Information("Tick stream cancelled.");
+        }
+        catch (ObjectDisposedException)
+        {
+            logger.Information("Tick stream cancelled.");
+        }
+        catch (Exception ex)
+        {
+            logger.Information(ex.ToString());
+            await SendPartial(socket, "_Status", "Simulation failed.");
+            if (debug) throw;
+        }
+    }
+
+    private async Task<string> RenderTickMessage(SimulationSnapshot snapshot)
+    {
+        var tick = await _razor.RenderAsync(HttpContext, "/Pages/Sims/Farm/_FarmTick.cshtml", snapshot);
+        var status = await _razor.RenderAsync(HttpContext, "/Pages/Sims/_Status.cshtml",
+            $"Tick {snapshot.Tick}: {snapshot.Sheep} sheep, {snapshot.Wolves} wolves, population {snapshot.Population}");
+        return tick + status;
+    }
+
+    private async Task<IReadOnlyList<SimulationSnapshot>> RunAndStoreAsync(CancellationToken ct)
+    {
+        UseStoredParameters();
+
+        var sims_collection = _farmDb.GetCollection<SimulationRun>(SimCollectionName);
+        var simulations = Enumerable.Range(0, Trials)
+            .Select(seed => new PredatorPreySimulation(FarmParams))
+            .ToArray();
+
+        var options = new ParallelOptions
+        {
+            MaxDegreeOfParallelism = 20,
+            CancellationToken = ct
+        };
+
+        var results = new ConcurrentBag<SimulationRun>();
+
+        await Parallel.ForEachAsync(simulations, options, async (simulation, token) =>
+        {
+            token.ThrowIfCancellationRequested();
+
+            simulation.Run(Seed, ticks: MaxTicks);
+
+            var run = new SimulationRun(
+                simulation.Seed,
+                simulation.Parameters,
+                simulation.Snapshots);
+
+            results.Add(run);
+
+            await Task.CompletedTask;
+        });
+
+        logger.Information("Total sims completed: {Total}", results.Count);
+
+        await RemoveUnasignedSimulations();
+        await sims_collection.InsertManyAsync(results);
+
+        return simulations.SelectMany(simulation => simulation.Snapshots).ToArray();
+    }
+
+    private async Task SendPartial(WebSocket socket, string name, object? model)
+    {
+        logger.Information($"sending partial '{name}'");
+        var html = await _razor.RenderAsync(HttpContext, $"/Pages/Sims/{name}.cshtml", model);
+        await SendHtml(socket, html);
+    }
+
+    private async Task SendHtml(WebSocket socket, string html)
+    {
+        if (socket.State != WebSocketState.Open)
+            return;
+
+        var bytes = Encoding.UTF8.GetBytes(html);
+        await _sendLock.WaitAsync();
+        try
+        {
+            if (socket.State != WebSocketState.Open)
+                return;
+
+            await socket.SendAsync(bytes, WebSocketMessageType.Text, endOfMessage: true, CancellationToken.None);
+        }
+        finally
+        {
+            _sendLock.Release();
+        }
+    }
+
+    private static string ReadCmd(byte[] buffer, int count)
+    {
+        using var doc = JsonDocument.Parse(Encoding.UTF8.GetString(buffer, 0, count));
+        return doc.RootElement.TryGetProperty("cmd", out var c) ? c.GetString() ?? "" : "";
     }
 
     public IActionResult OnGetStep()
@@ -175,6 +332,13 @@ public class SheepFarm : RazorHatPage
     {
         FarmParams = LoadParameters();
         FarmSim = new PredatorPreySimulation(FarmParams);
+        var population = FarmParams.Sheep + FarmParams.Wolves;
+        ShownSnapshot = new SimulationSnapshot(
+            0,
+            FarmParams.Sheep,
+            FarmParams.Wolves,
+            population,
+            population == 0 ? 0 : (double)FarmParams.Wolves / population);
         logger.Information(
             "Loaded SheepFarm parameters from {Collection}: sheep={Sheep}, wolves={Wolves}, grass={Grass}, hunt={Hunt}",
             ParametersCollectionName,
