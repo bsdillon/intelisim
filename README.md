@@ -53,6 +53,12 @@ or renders those states at a different rate.
 - [REA](https://github.com/morluto/rea)
 - [REA-RAG](https://github.com/mytechnotalent/rea)
 
+2. Tracks
+    - Chats
+        - [ML Roadmap](https://chatgpt.com/share/6ac6a224-6390-83ea-b22d-2edc2a9fca0c) + [copy](./chats/chatgpt/ml_roadmap.md)
+        -
+3.
+
 ## CodeMechanic
 
 1. Issues
@@ -131,3 +137,5 @@ or renders those states at a different rate.
   before you train anything. A hundred labeled frames and a split is enough to learn the loop. The headset project can
   be
   that set later. It is not the course.
+
+
