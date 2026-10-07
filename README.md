@@ -44,10 +44,34 @@ or renders those states at a different rate.
 - Can results be analyzed without the GUI?
 - Can a simulation run headlessly?
 
+## ML
 
-## ML 
+### Samples
 
-### RAG Samples
+1. Reverse Engineering, using RAG:
 
-[REA](https://github.com/mytechnotalent/rea)
+- [REA](https://github.com/morluto/rea)
+- [REA-RAG](https://github.com/mytechnotalent/rea)
 
+## CodeMechanic
+
+1. Issues
+
+#### CodeMechanic.RegularExpressions
+
+- [ ] v9 itself still drops or misreads real C#:
+
+  operator is only \+. -, ==, implicit, and explicit are out.
+  <generic> allows one nested level. Map<T, Dictionary<string, List<U>>> does not fit.
+  <params> is [^)]*. Foo(Bar(1)) splits at the inner ).
+  The return alternation still has [\w\?]+(?:<[^>]+>)? above Dictionary<> and Task<>. It works on the torture file
+  because those returns happened to fit a later alt after backtracking. A longer return will lose that race.
+  Local functions stay out on purpose. abstract and interface members only match on the second arm, at line start.
+  Attributes are not part of the match. partial, extern, and required are not modifiers.
+
+  So the change, if you want one, is not another torture pass. Seed v9, then run the two-body check. Scoring and the
+  labeled "right method / wrong method" set come after those bodies differ.
+
+#### CodeMechanic.Neo4j
+
+- [ ] ...
