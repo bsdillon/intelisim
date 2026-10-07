@@ -19,6 +19,12 @@ public class SheepFarm : RazorHatPage
     private const string SimCollectionName = "simulations";
 
     private static readonly TimeSpan TickDelay = TimeSpan.FromMilliseconds(80);
+    private static readonly JsonSerializerOptions ChartJson = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
+
+    private readonly record struct FarmPopulationPoint(int Tick, int Sheep, int Wolves);
 
     private readonly DataStore _farmDb;
     private readonly IRazorPartialRenderer _razor;
@@ -153,11 +159,13 @@ public class SheepFarm : RazorHatPage
             logger.Information("Streaming {Ticks} ticks", snapshots.Count);
 
             var populations = new List<int>(snapshots.Count);
+            var series = new List<FarmPopulationPoint>(snapshots.Count);
             for (var i = 0; i < snapshots.Count; i++)
             {
                 ct.ThrowIfCancellationRequested();
                 populations.Add(snapshots[i].Population);
-                await SendHtml(socket, await RenderTickMessage(snapshots[i], populations));
+                series.Add(new FarmPopulationPoint(snapshots[i].Tick, snapshots[i].Sheep, snapshots[i].Wolves));
+                await SendHtml(socket, await RenderTickMessage(snapshots[i], populations, series));
                 if (i < snapshots.Count - 1)
                     await Task.Delay(TickDelay, ct);
             }
@@ -188,14 +196,19 @@ public class SheepFarm : RazorHatPage
         }
     }
 
-    private async Task<string> RenderTickMessage(SimulationSnapshot snapshot, IReadOnlyList<int> populations)
+    private async Task<string> RenderTickMessage(
+        SimulationSnapshot snapshot,
+        IReadOnlyList<int> populations,
+        IReadOnlyList<FarmPopulationPoint> series)
     {
         var tick = await _razor.RenderAsync(HttpContext, "/Pages/Sims/Farm/_FarmTick.cshtml", snapshot);
         var status = await _razor.RenderAsync(HttpContext, "/Pages/Sims/_Status.cshtml",
             $"Tick {snapshot.Tick}: {snapshot.Sheep} sheep, {snapshot.Wolves} wolves, population {snapshot.Population}");
         var histogram = await _razor.RenderAsync(HttpContext, "/Pages/Sims/Farm/_FarmHistogram.cshtml",
             JsonSerializer.Serialize(populations));
-        return tick + status + histogram;
+        var population = await _razor.RenderAsync(HttpContext, "/Pages/Sims/Farm/_FarmPopulation.cshtml",
+            JsonSerializer.Serialize(series, ChartJson));
+        return tick + status + histogram + population;
     }
 
     private async Task<IReadOnlyList<SimulationSnapshot>> RunAndStoreAsync(CancellationToken ct)

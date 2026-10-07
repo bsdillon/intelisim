@@ -185,7 +185,10 @@
     <div id="farm-live" class="w-full max-w-5xl self-stretch mt-6">
         <div id="status">Idle</div>
         <partial name="/Pages/Sims/Farm/_FarmTick.cshtml" model="Model.ShownSnapshot"/>
+        <p class="mt-4 font-semibold">Histogram</p>
         <div id="simulation-histogram" class="w-full" data-samples="[]"></div>
+        <p class="mt-4 font-semibold">Sheep and wolves</p>
+        <div id="population-chart" class="w-full" data-series="[]"></div>
     </div>
 
 </div>
