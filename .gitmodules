@@ -1,0 +1,9 @@
+[submodule "experimental/CodeMechanic.RegularExpressions"]
+	path = experimental/CodeMechanic.RegularExpressions
+	url = https://gitea-production-e15c.up.railway.app/NickPreston26/CodeMechanic.RegularExpressions.git
+[submodule "experimental/CodeMechanic.neo4j"]
+	path = experimental/CodeMechanic.neo4j
+	url = https://gitea-production-e15c.up.railway.app/NickPreston26/CodeMechanic.Neo4j.git
+[submodule "experimental/CodeMechanic.Neo4j"]
+	path = experimental/CodeMechanic.Neo4j
+	url = https://gitea-production-e15c.up.railway.app/NickPreston26/CodeMechanic.Neo4j.git
