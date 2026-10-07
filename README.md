@@ -74,4 +74,34 @@ or renders those states at a different rate.
 
 #### CodeMechanic.Neo4j
 
-- [ ] ...
+* [convo](https://grok.com/c/c63eece6-5a90-4b03-9480-e26532d72f60?rid=4b5a3aa3-8723-4f35-bce0-b5513f0197c4)
+  The embedder is fine. The string you hashed is not. Railway currently has no CsharpMethod rows, so this is the homelab
+  graph you already measured, not a new failure.
+
+  Extract<T> and AutoExtract<T> were both stored as 1253 characters starting at var options = RegexOptions.Compiled.
+  Same span, same vector. Cosine then cannot prefer the method you asked for. A second backfill also embedded Namespace
+  nodes of 6–32 characters, and names like if and foreach, because upload\_to\_neo4j was false and the regex had not yet
+  rejected them. mxbai-embed-large did what it was asked. It embedded the wrong text, and it is a general English model,
+  not a C# one. Nothing was trained on your "right method / wrong method" pairs. model\_name on the node is the right
+  escape hatch. Re-embed after the body starts at public static. Do not tune anything until those two previews differ.
+
+  Training is a different skill. You have only run inference.
+
+  Do these in order, and skip the 500-lesson lists:
+
+    1. [karpathy/nn-zero-to-hero](https://github.com/karpathy/nn-zero-to-hero) — micrograd, then makemore. Loss,
+       backprop,
+       train versus validation. This is the part you do not have.
+    2. [karpathy/nanoGPT](https://github.com/karpathy/nanoGPT) — one small GPT trained on text you can overfit on
+       purpose,
+       then fail to generalize. [karpathy/nanochat](https://github.com/karpathy/nanochat) is the same loop with a chat
+       UI,
+       if you want the full path later.
+    3. [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) — the same model, written as a book so the
+       tensor shapes are not magic.
+    4. Only then [UKPLab/sentence-transformers](https://github.com/UKPLab/sentence-transformers). That is how you would
+       train an embedder: pairs of (query, Extract<T> body) against (query, AutoExtract body). Useless until you have
+       fifty
+       labeled pairs and a held-out set.
+
+
