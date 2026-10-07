@@ -104,4 +104,30 @@ or renders those states at a different rate.
        fifty
        labeled pairs and a held-out set.
 
+  > Ok. My team wants me to incorporate computer vision into my ML learnings. Same list, with some extras, right?
 
+  Only the first step is the same. After that the list changes. A vision model is a function from pixels to a label or a
+  box. nanoGPT and sentence-transformers train on tokens. They will not teach the part your team is asking for.
+
+  Keep [karpathy/nn-zero-to-hero](https://github.com/karpathy/nn-zero-to-hero) through micrograd. Loss, backprop, train
+  versus validation. Stop before makemore. That series turns into language models.
+
+  Then, in order:
+
+    1. Justin Johnson's Deep Learning for Computer Vision assignments, the public notebook set. Classification first: a
+       linear model on pixels, then a small conv net. The metric is accuracy on a held-out image folder, not
+       cosine. [stanford-cs231n](http://cs231n.stanford.edu/) is the lecture track those notebooks come from.
+    2. [pytorch/vision](https://github.com/pytorch/vision) only as the library under that. Transforms, ImageFolder, a
+       pretrained ResNet you fine-tune on your own split. Fine-tune means the weights change. Calling a model on a
+       screenshot does not.
+    3. [ultralytics/ultralytics](https://github.com/ultralytics/ultralytics) after the classifier beats a dumb baseline.
+       Detection is a different label: a box plus a class, scored with mAP, not accuracy. Do not start here. YOLO will
+       hide
+       the training loop you still do not have.
+
+  What carries over from the graph is the failure mode. You embedded the wrong span and the ranker looked smart. In
+  vision
+  the same bug is a crop, a label, or a leaked frame from the same video in both train and val. Build a frozen image set
+  before you train anything. A hundred labeled frames and a split is enough to learn the loop. The headset project can
+  be
+  that set later. It is not the course.

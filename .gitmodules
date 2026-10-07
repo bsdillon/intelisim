@@ -7,3 +7,6 @@
 [submodule "experimental/CodeMechanic.Neo4j"]
 	path = experimental/CodeMechanic.Neo4j
 	url = https://gitea-production-e15c.up.railway.app/NickPreston26/CodeMechanic.Neo4j.git
+[submodule "experimental/chungo"]
+	path = experimental/chungo
+	url = https://gitea-production-e15c.up.railway.app/NickPreston26/chungo.git
