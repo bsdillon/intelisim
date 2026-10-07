@@ -152,10 +152,12 @@ public class SheepFarm : RazorHatPage
             var snapshots = await RunAndStoreAsync(ct);
             logger.Information("Streaming {Ticks} ticks", snapshots.Count);
 
+            var populations = new List<int>(snapshots.Count);
             for (var i = 0; i < snapshots.Count; i++)
             {
                 ct.ThrowIfCancellationRequested();
-                await SendHtml(socket, await RenderTickMessage(snapshots[i]));
+                populations.Add(snapshots[i].Population);
+                await SendHtml(socket, await RenderTickMessage(snapshots[i], populations));
                 if (i < snapshots.Count - 1)
                     await Task.Delay(TickDelay, ct);
             }
@@ -186,12 +188,14 @@ public class SheepFarm : RazorHatPage
         }
     }
 
-    private async Task<string> RenderTickMessage(SimulationSnapshot snapshot)
+    private async Task<string> RenderTickMessage(SimulationSnapshot snapshot, IReadOnlyList<int> populations)
     {
         var tick = await _razor.RenderAsync(HttpContext, "/Pages/Sims/Farm/_FarmTick.cshtml", snapshot);
         var status = await _razor.RenderAsync(HttpContext, "/Pages/Sims/_Status.cshtml",
             $"Tick {snapshot.Tick}: {snapshot.Sheep} sheep, {snapshot.Wolves} wolves, population {snapshot.Population}");
-        return tick + status;
+        var histogram = await _razor.RenderAsync(HttpContext, "/Pages/Sims/Farm/_FarmHistogram.cshtml",
+            JsonSerializer.Serialize(populations));
+        return tick + status + histogram;
     }
 
     private async Task<IReadOnlyList<SimulationSnapshot>> RunAndStoreAsync(CancellationToken ct)
