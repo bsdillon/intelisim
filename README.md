@@ -57,7 +57,9 @@ or renders those states at a different rate.
     - Chats
         - [ML Roadmap](https://chatgpt.com/share/6ac6a224-6390-83ea-b22d-2edc2a9fca0c) + [copy](./chats/chatgpt/ml_roadmap.md)
         -
-3.
+3. Courses
+    - [Datacamp](https://www.datacamp.com/tracks/machine-learning-engineer)
+    - [SciKit Learn](https://scikit-learn.org/stable/user_guide.html)
 
 ## CodeMechanic
 
