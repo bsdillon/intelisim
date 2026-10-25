@@ -10,3 +10,6 @@
 [submodule "experimental/chungo"]
 	path = experimental/chungo
 	url = https://gitea-production-e15c.up.railway.app/NickPreston26/chungo.git
+[submodule "references/handson-mlp"]
+	path = references/handson-mlp
+	url = https://github.com/ageron/handson-mlp.git
