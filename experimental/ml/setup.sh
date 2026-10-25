@@ -1,8 +1,12 @@
+###
+# This script is for setting up runnable Python files on a CachyOs Linux machine.
+# It is not intended for use with all Linux distros and can be rewritten.
+###
 
 ## initial activation (uncomment to use)
 
-#python -m venv .venv
-#source .venv/bin/activate
+# python -m venv .venv
+# source .venv/bin/activate
 
 ## installs
 python -m pip install --upgrade pip

@@ -140,4 +140,13 @@ or renders those states at a different rate.
   be
   that set later. It is not the course.
 
+## Recommended Research
+
+1. https://fourways.readthedocs.io/en/latest/gallery/lesson2/plot_rabbitsandfoxes.html - Explains how to find mult.
+   equilibrium between rabbit and fox populations.
+2. Slack
+   Variables - [Search](https://search.brave.com/search?q=slack+variables&conversation=09a966c32fb9b264f058410f9f5b1ae37415)
+3. sensitivity analysis modeling (
+   SAM) - [Search](https://search.brave.com/search?q=sensitivity+analysis+modeling&conversation=09a97d222e7128282b95981d5a3327824ce4)
+
 
